@@ -124,7 +124,7 @@ pub const FEMALE_FIRST_NAMES: [&str; 61] = [
     "Lucia",
 ];
 
-pub const SURNAMES: [&str; 335] = [
+pub const SURNAMES: [&str; 336] = [
     "Smith",
     "Jones",
     "Williams",
@@ -192,7 +192,6 @@ pub const SURNAMES: [&str; 335] = [
     "Reynolds",
     "Fox",
     "Weber",
-    "von Harten",
     "McDonald",
     "Douglas",
     "Marshall",
@@ -206,7 +205,6 @@ pub const SURNAMES: [&str; 335] = [
     "Hammond",
     "Warren",
     "Barrett",
-    "Griffin",
     "Hoover",
     "Hobbs",
     "Norris",
@@ -421,6 +419,7 @@ pub const SURNAMES: [&str; 335] = [
     "Whitney",
     "Roy",
     "Madden",
+    "van den Berg",
     "Fleming",
     "Bowers",
     "Mcmahon",
@@ -441,8 +440,10 @@ pub const SURNAMES: [&str; 335] = [
     "Rosario",
     "Sexton",
     "Ballard",
+    "Björnsson",
     "Pollard",
     "Carrillo",
+    "Vandroogenbröck",
     "Vaughan",
     "Serrano",
     "Terrell",
