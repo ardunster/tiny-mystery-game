@@ -1,3 +1,5 @@
+use tiny_mystery_game::get_male_name;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Got a name: {}", get_male_name());
 }
