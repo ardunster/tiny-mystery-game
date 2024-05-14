@@ -19,5 +19,5 @@ target/
 /target
 
 # IDE
-*/.idea
-*/.vscode
+**/.idea/**
+**/.vscode/**
