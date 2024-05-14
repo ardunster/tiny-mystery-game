@@ -1,3 +1,6 @@
+use crate::villagers::Gender;
+use bevy::reflect::Array;
+
 pub const MALE_FIRST_NAMES: [&str; 59] = [
     "Norman",
     "William",
@@ -462,3 +465,17 @@ pub const SURNAMES: [&str; 336] = [
     "Christensen",
     "von Harten",
 ];
+
+pub fn get_first_name(hash: u64, gender: Gender) -> String {
+    if gender == Gender::Male {
+        println!("Getting male name...");
+        let position = hash % (MALE_FIRST_NAMES.len() as u64);
+        println!("Calculated Position {} from hash {}", position, hash);
+        MALE_FIRST_NAMES[position as usize].to_string()
+    } else {
+        println!("Getting female name...");
+        let position = hash % (FEMALE_FIRST_NAMES.len() as u64);
+        println!("Calculated Position {} from hash {}", position, hash);
+        FEMALE_FIRST_NAMES[position as usize].to_string()
+    }
+}
