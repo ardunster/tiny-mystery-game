@@ -476,13 +476,13 @@ pub fn get_first_name(hash: &u64, gender: &Gender) -> String {
     match gender {
         Gender::Male => {
             println!("Getting male name...");
-            let position = position_in_range(&(MALE_FIRST_NAMES.len() as u64), &hash);
+            let position = position_in_range(&(MALE_FIRST_NAMES.len() as u64), hash);
             println!("Calculated Position {} from hash {}", position, hash);
             MALE_FIRST_NAMES[position as usize].to_string()
         }
         Gender::Female => {
             println!("Getting female name...");
-            let position = position_in_range(&(FEMALE_FIRST_NAMES.len() as u64), &hash);
+            let position = position_in_range(&(FEMALE_FIRST_NAMES.len() as u64), hash);
             println!("Calculated Position {} from hash {}", position, hash);
             FEMALE_FIRST_NAMES[position as usize].to_string()
         }
@@ -491,7 +491,7 @@ pub fn get_first_name(hash: &u64, gender: &Gender) -> String {
 
 pub fn get_surname(hash: &u64) -> String {
     println!("Getting surname...");
-    let position = position_in_range(&(SURNAMES.len() as u64), &hash);
+    let position = position_in_range(&(SURNAMES.len() as u64), hash);
     println!("Calculated Position {} from hash {}", position, hash);
     SURNAMES[position as usize].to_string()
 }
