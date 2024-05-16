@@ -65,7 +65,7 @@ pub const MALE_FIRST_NAMES: [&str; 61] = [
     "Lorenzo",
 ];
 
-pub const FEMALE_FIRST_NAMES: [&str; 62] = [
+pub const FEMALE_FIRST_NAMES: [&str; 65] = [
     "Elizabeth",
     "Mary",
     "Anne",
@@ -75,6 +75,7 @@ pub const FEMALE_FIRST_NAMES: [&str; 62] = [
     "Catherine",
     "Caroline",
     "Sarah",
+    "Sara",
     "Emma",
     "Alice",
     "Eleanor",
@@ -93,6 +94,8 @@ pub const FEMALE_FIRST_NAMES: [&str; 62] = [
     "Caroline",
     "Diana",
     "Amelia",
+    "Melissa",
+    "Melisa",
     "Evelyn",
     "Florence",
     "Harriet",
@@ -484,4 +487,11 @@ pub fn get_first_name(hash: u64, gender: Gender) -> String {
             FEMALE_FIRST_NAMES[position as usize].to_string()
         }
     }
+}
+
+pub fn get_surname(hash: u64) -> String {
+    println!("Getting surname...");
+    let position = position_in_range(SURNAMES.len() as u64, hash);
+    println!("Calculated Position {} from hash {}", position, hash);
+    SURNAMES[position as usize].to_string()
 }

@@ -1,4 +1,4 @@
-use tiny_mystery_game::names::get_first_name;
+use tiny_mystery_game::names::{get_first_name, get_surname};
 use tiny_mystery_game::rng::{calculate_hash, coin_flip};
 use tiny_mystery_game::villagers::Gender;
 
@@ -13,5 +13,5 @@ fn main() {
         false => Gender::Female,
     };
 
-    println!("Got a name: {}", get_first_name(hash, gender));
+    println!("Got a name: {} {}", get_first_name(hash, gender), get_surname(hash));
 }
