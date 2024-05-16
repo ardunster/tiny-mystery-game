@@ -1,17 +1,19 @@
 use crate::villagers::Gender;
 use crate::rng::position_in_range;
 
-pub const MALE_FIRST_NAMES: [&str; 59] = [
+pub const MALE_FIRST_NAMES: [&str; 61] = [
     "Norman",
+    "Leroy",
     "William",
     "John",
     "Thomas",
-    "Richard",
     "Henry",
+    "Richard",
     "Edward",
     "Arthur",
     "George",
     "Charles",
+    "Benjamin",
     "Robert",
     "James",
     "David",
@@ -63,11 +65,12 @@ pub const MALE_FIRST_NAMES: [&str; 59] = [
     "Lorenzo",
 ];
 
-pub const FEMALE_FIRST_NAMES: [&str; 61] = [
+pub const FEMALE_FIRST_NAMES: [&str; 62] = [
     "Elizabeth",
     "Mary",
     "Anne",
     "Jane",
+    "Zoe",
     "Margaret",
     "Catherine",
     "Caroline",
