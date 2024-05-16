@@ -1,5 +1,5 @@
 use crate::names::get_first_name;
-use crate::rng::calculate_hash;
+use crate::rng::{calculate_hash, coin_flip};
 use bevy::app::App;
 use bevy::prelude::*;
 
@@ -29,6 +29,11 @@ fn generate_villager(mut commands: Commands) {
 
     let hash = calculate_hash(&stringy_seed);
 
-    let name = get_first_name(hash, Gender::Male);
+    let gender = match coin_flip(hash) {
+        true => Gender::Male,
+        false => Gender::Female,
+    };
+
+    let name = get_first_name(hash, gender);
     commands.spawn((Villager, Name(name.to_string())));
 }

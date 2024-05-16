@@ -6,9 +6,8 @@ pub fn calculate_hash<T: Hash>(t: &T) -> u64 {
     s.finish()
 }
 
-pub fn coin_flip(hash: u64) {
-    // Todo: what to return? we're gonna modulo the hash such that we basically just return even
-    //  (0) or odd (1), or whatever else makes actual sense.
+pub fn coin_flip(hash: u64) -> bool {
+    hash % 2 == 0
 }
 
 pub fn position_in_range(max: u64, hash: u64) -> u64 {
