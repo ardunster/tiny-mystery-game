@@ -1,5 +1,5 @@
 use crate::villagers::Gender;
-use bevy::reflect::Array;
+use crate::rng::position_in_range;
 
 pub const MALE_FIRST_NAMES: [&str; 59] = [
     "Norman",
@@ -467,15 +467,18 @@ pub const SURNAMES: [&str; 336] = [
 ];
 
 pub fn get_first_name(hash: u64, gender: Gender) -> String {
-    if gender == Gender::Male {
-        println!("Getting male name...");
-        let position = hash % (MALE_FIRST_NAMES.len() as u64);
-        println!("Calculated Position {} from hash {}", position, hash);
-        MALE_FIRST_NAMES[position as usize].to_string()
-    } else {
-        println!("Getting female name...");
-        let position = hash % (FEMALE_FIRST_NAMES.len() as u64);
-        println!("Calculated Position {} from hash {}", position, hash);
-        FEMALE_FIRST_NAMES[position as usize].to_string()
+    match gender {
+        Gender::Male => {
+            println!("Getting male name...");
+            let position = position_in_range(MALE_FIRST_NAMES.len() as u64, hash);
+            println!("Calculated Position {} from hash {}", position, hash);
+            MALE_FIRST_NAMES[position as usize].to_string()
+        }
+        Gender::Female => {
+            println!("Getting female name...");
+            let position = position_in_range(FEMALE_FIRST_NAMES.len() as u64, hash);
+            println!("Calculated Position {} from hash {}", position, hash);
+            FEMALE_FIRST_NAMES[position as usize].to_string()
+        }
     }
 }

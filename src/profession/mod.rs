@@ -2,26 +2,29 @@ pub enum Profession {
     // Essential for forging tools, weapons, and household items from metal.
     Blacksmith,
 
-    Farmer,
     //: Responsible for cultivating crops, raising livestock, and providing food for the village.
-    Baker,
+    Farmer,
     //: Produces bread, pastries, and other baked goods for the community.
-    Carpenter,
+    Baker,
     //: Constructs and repairs buildings, furniture, and other wooden structures.
-    Miller,
+    Carpenter,
     //: Operates a mill to grind grains into flour, an essential ingredient for baking.
-    Tailor,
+    Miller,
     //: Creates clothing and textiles for the villagers, including repairs and alterations.
-    Potter,
+    Tailor,
     //: Crafts pottery and ceramics for cooking, storage, and other household needs.
-    Healer,
+    Potter,
     //: Provides medical care, herbal remedies, and treatments for the sick and injured.
-    Innkeeper,
+    Healer,
     //: Runs the local inn or tavern, providing food, drink, and lodging for travelers and villagers alike.
-
-    // Village Elder/Leader,
+    Innkeeper,
     //: Provides leadership, governance, and decision-making for the community.
+    // Village Elder/Leader,
     // If the village has a leader, and the leader didn't commit the crime, high probability of being the one who talks to the player
     Watchman,
     Woodcutter,
+    Hunter,
+    Tanner,
+    CoalBurner,
+    Cook,
 }
