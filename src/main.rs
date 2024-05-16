@@ -4,14 +4,19 @@ use tiny_mystery_game::villagers::Gender;
 
 
 fn main() {
-    let stringy_seed = "some_seedz".to_string();
+    let stringy_seed = "some_seedz";
 
-    let hash = calculate_hash(&stringy_seed);
+    for position in 0..3 {
+        let seed_with_pos = format!("{stringy_seed}{}", position.to_string());
 
-    let gender = match coin_flip(hash) {
-        true => Gender::Male,
-        false => Gender::Female,
-    };
+        println!("seed with position: {}", seed_with_pos);
+        let hash = calculate_hash(&seed_with_pos);
 
-    println!("Got a name: {} {}", get_first_name(hash, gender), get_surname(hash));
+        let gender = match coin_flip(hash) {
+            true => Gender::Male,
+            false => Gender::Female,
+        };
+
+        println!("Got a name: {} {}", get_first_name(hash, gender), get_surname(hash));
+    }
 }
