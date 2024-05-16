@@ -29,11 +29,11 @@ fn generate_villager(mut commands: Commands) {
 
     let hash = calculate_hash(&stringy_seed);
 
-    let gender = match coin_flip(hash) {
+    let gender = match coin_flip(&hash) {
         true => Gender::Male,
         false => Gender::Female,
     };
 
-    let name = get_first_name(hash, gender);
+    let name = get_first_name(&hash, &gender);
     commands.spawn((Villager, Name(name.to_string())));
 }
