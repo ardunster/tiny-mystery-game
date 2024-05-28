@@ -18,7 +18,7 @@ fn main() {
     for position in 0..3 {
         let seed_with_pos = stringy_seed.to_owned() + &position.to_string();
 
-        trace!("seed with position: {}", seed_with_pos);
+        trace!(target: "Main", "seed with position: {}", seed_with_pos);
         let hash = calculate_hash(&seed_with_pos);
 
         let gender = match coin_flip(&hash) {
@@ -26,7 +26,7 @@ fn main() {
             false => Gender::Female,
         };
 
-        trace!(
+        trace!(target: "Main",
             "Got a name: {} {}",
             get_first_name(&hash, &gender),
             get_surname(&hash)
