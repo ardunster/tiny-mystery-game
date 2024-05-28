@@ -5,6 +5,8 @@ use tiny_mystery_game::rng::{calculate_hash, coin_flip};
 use tiny_mystery_game::villagers::Gender;
 
 fn main() {
+    // Use RUST_LOG=trace to see env_logger output.
+    env_logger::init();
     let args: Vec<String> = env::args().collect();
 
     let stringy_seed = if args.len() >= 3 && args[1] == "seed" {

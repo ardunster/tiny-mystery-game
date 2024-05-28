@@ -1,6 +1,6 @@
-use log::trace;
 use crate::rng::position_in_range;
 use crate::villagers::Gender;
+use log::trace;
 
 pub const MALE_FIRST_NAMES: [&str; 61] = [
     "Norman",
