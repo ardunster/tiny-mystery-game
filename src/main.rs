@@ -1,3 +1,4 @@
+use log::trace;
 use std::env;
 use tiny_mystery_game::names::{get_first_name, get_surname};
 use tiny_mystery_game::rng::{calculate_hash, coin_flip};
@@ -15,7 +16,7 @@ fn main() {
     for position in 0..3 {
         let seed_with_pos = stringy_seed.to_owned() + &position.to_string();
 
-        println!("seed with position: {}", seed_with_pos);
+        trace!("seed with position: {}", seed_with_pos);
         let hash = calculate_hash(&seed_with_pos);
 
         let gender = match coin_flip(&hash) {
@@ -23,7 +24,7 @@ fn main() {
             false => Gender::Female,
         };
 
-        println!(
+        trace!(
             "Got a name: {} {}",
             get_first_name(&hash, &gender),
             get_surname(&hash)
