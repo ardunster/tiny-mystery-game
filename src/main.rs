@@ -9,7 +9,7 @@ use tiny_mystery_game::villagers::Gender;
 
 fn main() {
     // Use RUST_LOG=trace to see env_logger output.
-    env_logger::init();
+    // env_logger::init();
     let args: Vec<String> = env::args().collect();
 
     let stringy_seed = if args.len() >= 3 && args[1] == "seed" {
@@ -75,15 +75,24 @@ fn spawn_tile_sprite(
     mut commands: Commands,
     sprite_atlas: Res<TileSpriteSheet>,
     asset_server: Res<AssetServer>,
+    window_query: Query<&Window, With<PrimaryWindow>>,
 ) {
-    let tile_sprite: Handle<Image> = asset_server.load("sprites/colored-transparent.png");
+    let window: &Window = window_query.get_single().unwrap();
+
+    let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome-transparent.png");
 
     commands.spawn(SpriteSheetBundle {
         atlas: TextureAtlas {
             layout: sprite_atlas.0.clone(),
-            index: 0,
+            index: 2,
         },
-        texture: tile_sprite,
+        texture: tile_texture,
+        transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
+        sprite: Sprite {
+            custom_size: Some(Vec2::new(100., 100.)),
+            color: Color::CRIMSON,
+            ..default()
+        },
         ..default()
     });
 }
