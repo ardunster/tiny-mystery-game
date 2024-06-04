@@ -37,7 +37,7 @@ fn main() {
     }
 
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
         .init_resource::<TileSpriteSheet>()
         .add_systems(Startup, (spawn_tile_sprite, spawn_camera))
         .run()
