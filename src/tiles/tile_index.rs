@@ -65,6 +65,23 @@ pub enum Person {
     OldMan = 225,
     LongButtonDownShirt = 226,
     PriestHabit = 227,
+    HoodAndBeard = 318,
+    HoodAndForkBeard = 319,
+    BruteTwo = 466,
+    Gnome = 467,
+    Ninja = 470,
+    Ranger = 471,
+}
+
+pub enum Face {
+    Boy = 514,
+    Girl = 515,
+    ManBeard = 516,
+    ManBald = 517,
+    Man = 518,
+    ManMoustache = 519,
+    WomanBangs = 520,
+    WomanStraightBangs = 521,
 }
 
 pub enum Plant {
@@ -84,7 +101,7 @@ pub enum Plant {
     DeadThorns = 104,
     PalmTree = 105,
     GrassPatch = 119,
-    Furrows = 306, //294
+    Furrows = 306,
     Sprouts = 307,
     CornSprouts = 308,
     Cabbages = 309,
@@ -143,4 +160,33 @@ pub enum Critter {
     Spider = 273,
     SpiderTwo = 274,
     Ant = 275,
+    Duck = 368,
+    Chicken = 369,
+    Cow = 370,
+    Horse = 371,
+    Pig = 372,
+    Cat = 373,
+    Dog = 374,
+    Bat = 418,
+    Snake = 420,
+    Bear = 422,
+    Rat = 423,
+}
+
+pub enum Building {
+    Watchtower = 508,
+    HouseAFrame = 509,
+    ThatchHutAFrame = 931,
+    ThatchHutWindows = 932,
+    StoneTower = 933,
+    ThatchRoundedRoof = 980,
+    ThatchTall = 981,
+    Church = 983,
+    WoodenHut = 984,
+    WoodenAFrame = 986,
+    RusticAFrame = 987,
+    Pagoda = 988,
+    Barn = 1029,
+    HouseChimney = 1030,
+    HousePillars = 1031,
 }
