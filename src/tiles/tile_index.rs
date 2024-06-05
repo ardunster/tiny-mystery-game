@@ -84,6 +84,12 @@ pub enum Plant {
     DeadThorns = 104,
     PalmTree = 105,
     GrassPatch = 119,
+    Furrows = 306, //294
+    Sprouts = 307,
+    CornSprouts = 308,
+    Cabbages = 309,
+    FlowerSprouts = 310,
+    VineSprouts = 311,
 }
 
 pub enum Path {
@@ -93,7 +99,12 @@ pub enum Path {
     Cross = 60,
     EndFromSouth = 61,
     BridgeArch = 202,
-    BridgeSolid = 203,
+    BridgeRaisedSolid = 203,
+    BridgeArchLow = 251,
+    BridgeRaisedPlanks = 252,
+    BridgeSuspension = 260,
+    BridgeFlatPlanks = 261,
+    BridgeFlatBroken = 262,
 }
 
 pub enum Fence {
@@ -115,4 +126,21 @@ pub enum Water {
     TeeNorthSouthEast = 206,
     Cross = 207,
     EndFromSouth = 208,
+    Solid = 253,
+    West = 254,
+    NorthWestCorner = 255,
+    ThreeSidesSouthWestEast = 256,
+    TrickleNorthSouth = 257,
+    TrickleCornerSouthToEast = 258,
+    PoolTrickleFromNorth = 259,
+}
+
+pub enum Critter {
+    Scorpion = 269,
+    Crab = 270,
+    Bee = 271,
+    Turtle = 272,
+    Spider = 273,
+    SpiderTwo = 274,
+    Ant = 275,
 }
