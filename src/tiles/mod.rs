@@ -1,6 +1,6 @@
 mod tile_index;
 
-use crate::tiles::tile_index::{GroundTile, Path, Person};
+use crate::tiles::tile_index::{Cobble, GroundTile, Path, Person, Plant};
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 
@@ -42,7 +42,7 @@ pub fn spawn_tile_sprite(
     commands.spawn(SpriteSheetBundle {
         atlas: TextureAtlas {
             layout: sprite_atlas.0.clone(),
-            index: Path::EndFromSouth as usize,
+            index: Plant::GrassPatch as usize,
         },
         texture: tile_texture,
         transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
