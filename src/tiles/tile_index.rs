@@ -24,6 +24,14 @@ pub enum Cobble {
     SouthWestCorner = 116,
     South = 117,
     SouthEastCorner = 118,
+    BrokenNorthWest = 165,
+    BrokenNorthEast = 166,
+    SlantNorthWest = 167,
+    SlantNorthEast = 168,
+    BrokenSouthWest = 214,
+    BrokenSouthEast = 215,
+    SlantSouthWest = 216,
+    SlantSouthEast = 218,
 }
 
 pub enum Person {
@@ -43,6 +51,20 @@ pub enum Person {
     Tie = 78,
     Hood = 79,
     HoodWithStaff = 80,
+    RobeWithBeard = 122,
+    MaskWithSword = 126,
+    TwoSwords = 128,
+    Farmer = 129,
+    Brute = 171,
+    King = 175,
+    Queen = 176,
+    Boy = 177,
+    Girl = 178,
+    Miner = 223,
+    Cowboy = 224,
+    OldMan = 225,
+    LongButtonDownShirt = 226,
+    PriestHabit = 227,
 }
 
 pub enum Plant {
@@ -70,4 +92,27 @@ pub enum Path {
     TeeNorthSouthEast = 59,
     Cross = 60,
     EndFromSouth = 61,
+    BridgeArch = 202,
+    BridgeSolid = 203,
+}
+
+pub enum Fence {
+    PicketShort = 147,
+    PicketPointed = 148,
+    PicketTall = 149,
+    PicketGateClosed = 150,
+    PicketGateOpen = 151,
+    Iron = 152,
+    IronBroken = 153,
+    IronGateSolidClosed = 199,
+    IronGateOpen = 200,
+    IronGateClosed = 201,
+}
+
+pub enum Water {
+    StraightNorthSouth = 204,
+    CornerSouthToEast = 205,
+    TeeNorthSouthEast = 206,
+    Cross = 207,
+    EndFromSouth = 208,
 }
