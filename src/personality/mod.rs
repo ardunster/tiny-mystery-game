@@ -66,4 +66,8 @@ pub enum PersonalityTrait {
     GamblingHabit,
     // complete effects TBD but increases chance that villager will commit crime and not remember, also decreases chance of remembering things in general especially when drunk
     Alcoholic,
+    // Introduces themselves to the player by a false name
+    FalseName,
+    // Increases chance of wandering randomly around town
+    Wanderer,
 }
