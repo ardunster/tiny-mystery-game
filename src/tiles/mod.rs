@@ -3,6 +3,7 @@ mod tile_index;
 use crate::tiles::tile_index::{
     Building, Cobble, Critter, Face, Fence, GroundTile, Path, Person, Plant, Water,
 };
+use bevy::color::palettes::css::BISQUE;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 
@@ -11,15 +12,15 @@ pub struct TileSpriteSheet(Handle<TextureAtlasLayout>);
 
 impl FromWorld for TileSpriteSheet {
     fn from_world(world: &mut World) -> Self {
-        let sprite_size_pixels = 16.0;
-        let spritesheet_padding = 1.0;
+        let sprite_size_pixels = 16;
+        let spritesheet_padding = 1;
         let spritesheet_rows = 22;
         let spritesheet_columns = 49;
         let texture_atlas = TextureAtlasLayout::from_grid(
-            Vec2::new(sprite_size_pixels, sprite_size_pixels),
+            UVec2::new(sprite_size_pixels, sprite_size_pixels),
             spritesheet_columns,
             spritesheet_rows,
-            Some(Vec2::new(spritesheet_padding, spritesheet_padding)),
+            Some(UVec2::new(spritesheet_padding, spritesheet_padding)),
             None,
         );
 
@@ -50,7 +51,7 @@ pub fn spawn_tile_sprite(
         transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
         sprite: Sprite {
             custom_size: Some(Vec2::new(100., 100.)),
-            color: Color::BISQUE,
+            color: Color::from(BISQUE),
             ..default()
         },
         ..default()

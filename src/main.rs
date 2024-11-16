@@ -8,7 +8,7 @@ use tiny_mystery_game::tiles;
 use tiny_mystery_game::tiles::TileSpriteSheet;
 use tiny_mystery_game::villagers::Gender;
 
-fn main() {
+fn main() -> AppExit {
     let args: Vec<String> = env::args().collect();
 
     App::new()
