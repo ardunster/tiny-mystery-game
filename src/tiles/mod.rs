@@ -42,18 +42,21 @@ pub fn spawn_tile_sprite(
 
     let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome-transparent.png");
 
-    commands.spawn(SpriteSheetBundle {
-        atlas: TextureAtlas {
-            layout: sprite_atlas.0.clone(),
-            index: Building::HouseChimney as usize,
-        },
-        texture: tile_texture,
-        transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
-        sprite: Sprite {
-            custom_size: Some(Vec2::new(100., 100.)),
-            color: Color::from(BISQUE),
+    commands.spawn((
+        SpriteBundle {
+            texture: tile_texture,
+            transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
+            sprite: Sprite {
+                custom_size: Some(Vec2::new(100., 100.)),
+                color: Color::from(BISQUE),
+                ..default()
+            },
             ..default()
         },
-        ..default()
-    });
+        TextureAtlas {
+            layout: sprite_atlas.0.clone(),
+            index: Building::HouseChimney as usize,
+            ..default()
+        },
+    ));
 }
