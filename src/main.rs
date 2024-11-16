@@ -1,6 +1,5 @@
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
-use log::trace;
 use std::env;
 
 use tiny_mystery_game::names::{get_first_name, get_surname};
@@ -10,8 +9,11 @@ use tiny_mystery_game::tiles::TileSpriteSheet;
 use tiny_mystery_game::villagers::Gender;
 
 fn main() {
-    // Use RUST_LOG=trace to see env_logger output.
-    // env_logger::init();
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::DEBUG)
+        .with_env_filter("Main=debug,bevy=info")
+        .init();
+
     let args: Vec<String> = env::args().collect();
 
     let stringy_seed = if args.len() >= 3 && args[1] == "seed" {
@@ -23,7 +25,7 @@ fn main() {
     for position in 0..3 {
         let seed_with_pos = stringy_seed.to_owned() + &position.to_string();
 
-        trace!(target: "Main", "seed with position: {}", seed_with_pos);
+        info!(target: "Main", "seed with position: {}", seed_with_pos);
         let hash = calculate_hash(&seed_with_pos);
 
         let gender = match coin_flip(&hash) {
@@ -31,7 +33,7 @@ fn main() {
             false => Gender::Female,
         };
 
-        trace!(target: "Main",
+        info!(target: "Main",
             "Got a name: {} {}",
             get_first_name(&hash, &gender),
             get_surname(&hash)
@@ -41,9 +43,14 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
         .init_resource::<TileSpriteSheet>()
-        .add_systems(Startup, (tiles::spawn_tile_sprite, spawn_camera))
+        .add_systems(
+            Startup,
+            (playground, tiles::spawn_tile_sprite, spawn_camera),
+        )
         .run()
 }
+
+fn playground() {}
 
 #[derive(Component)]
 struct Player {}

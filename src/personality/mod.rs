@@ -70,4 +70,6 @@ pub enum PersonalityTrait {
     FalseName,
     // Increases chance of wandering randomly around town
     Wanderer,
+    // More likely to be fearful and evasive about not only misdeeds but also just flaws
+    Guilty,
 }
