@@ -1,7 +1,7 @@
+use bevy::log::LogPlugin;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use std::env;
-
 use tiny_mystery_game::names::{get_first_name, get_surname};
 use tiny_mystery_game::rng::{calculate_hash, coin_flip};
 use tiny_mystery_game::tiles;
@@ -9,12 +9,29 @@ use tiny_mystery_game::tiles::TileSpriteSheet;
 use tiny_mystery_game::villagers::Gender;
 
 fn main() {
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
-        .with_env_filter("Main=debug,bevy=info")
-        .init();
-
     let args: Vec<String> = env::args().collect();
+
+    App::new()
+        .add_plugins(
+            DefaultPlugins
+                .set(LogPlugin {
+                    filter: "info,Main=debug".into(),
+                    level: bevy::log::Level::DEBUG,
+                    ..default()
+                })
+                .set(ImagePlugin::default_nearest()),
+        )
+        .insert_resource(EnvArgsResource { args })
+        .init_resource::<TileSpriteSheet>()
+        .add_systems(
+            Startup,
+            (playground, tiles::spawn_tile_sprite, spawn_camera),
+        )
+        .run()
+}
+
+fn playground(env_args: Res<EnvArgsResource>) {
+    let args = &env_args.args;
 
     let stringy_seed = if args.len() >= 3 && args[1] == "seed" {
         &args[2]
@@ -39,18 +56,12 @@ fn main() {
             get_surname(&hash)
         );
     }
-
-    App::new()
-        .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
-        .init_resource::<TileSpriteSheet>()
-        .add_systems(
-            Startup,
-            (playground, tiles::spawn_tile_sprite, spawn_camera),
-        )
-        .run()
 }
 
-fn playground() {}
+#[derive(Resource)]
+struct EnvArgsResource {
+    args: Vec<String>,
+}
 
 #[derive(Component)]
 struct Player {}

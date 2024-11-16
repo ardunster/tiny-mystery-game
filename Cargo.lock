@@ -3133,8 +3133,6 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "log",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
