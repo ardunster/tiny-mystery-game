@@ -16,7 +16,7 @@ fn main() -> AppExit {
         .add_plugins(
             DefaultPlugins
                 .set(LogPlugin {
-                    filter: "info,Playground=debug,Tilemap=debug".into(),
+                    filter: "info,Playground::Tilemap=debug,Tilemap=debug".into(),
                     level: bevy::log::Level::DEBUG,
                     ..default()
                 })
@@ -32,7 +32,14 @@ fn main() -> AppExit {
         .insert_resource(EnvArgsResource { args })
         .add_plugins(TilemapPlugin)
         .add_systems(PreStartup, set_world_seed)
-        .add_systems(Startup, (playground, spawn_camera, tiles::set_up_tilemap))
+        .add_systems(
+            Startup,
+            (
+                spawn_camera,
+                tiles::set_up_tilemap,
+                playground.after(tiles::set_up_tilemap),
+            ),
+        )
         .run()
 }
 
@@ -56,6 +63,8 @@ fn playground(world_seed: Res<WorldSeed>) {
             get_surname(&hash)
         );
     }
+
+    debug!(target: "Playground::Tilemap", "Tilemap stuff");
 }
 
 #[derive(Resource)]

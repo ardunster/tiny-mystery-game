@@ -1,8 +1,5 @@
-mod tile_index;
-
-use crate::tiles::tile_index::{
-    Building, Cobble, Critter, Face, Fence, GroundTile, Path, Person, Plant, Water,
-};
+pub mod tile_index;
+use crate::tiles::tile_index::GroundTile;
 use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
