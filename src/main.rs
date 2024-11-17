@@ -35,7 +35,7 @@ fn main() -> AppExit {
         .add_systems(
             Startup,
             // (playground, tiles::spawn_tile_sprite, spawn_camera),
-            (tiles::set_up_tilemap),
+            (spawn_camera, tiles::set_up_tilemap),
         )
         .run()
 }
@@ -85,11 +85,9 @@ struct WorldSeed(String);
 #[derive(Component)]
 struct Player {}
 
-fn spawn_camera(mut commands: Commands, window_query: Query<&Window, With<PrimaryWindow>>) {
-    let window: &Window = window_query.get_single().unwrap();
-
+fn spawn_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle {
-        transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
+        transform: Transform::from_scale(Vec3::new(0.5, 0.5, 1.0)),
         ..default()
     });
 }
