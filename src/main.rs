@@ -1,6 +1,7 @@
 use bevy::log::LogPlugin;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
+use bevy_ecs_tilemap::TilemapPlugin;
 use std::env;
 use tiny_mystery_game::names::{get_first_name, get_surname};
 use tiny_mystery_game::rng::{calculate_hash, coin_flip};
@@ -29,10 +30,12 @@ fn main() -> AppExit {
                 }),
         )
         .insert_resource(EnvArgsResource { args })
-        .init_resource::<TileSpriteSheet>()
+        // .init_resource::<TileSpriteSheet>()
+        .add_plugins(TilemapPlugin)
         .add_systems(
             Startup,
-            (playground, tiles::spawn_tile_sprite, spawn_camera),
+            // (playground, tiles::spawn_tile_sprite, spawn_camera),
+            (tiles::set_up_tilemap),
         )
         .run()
 }

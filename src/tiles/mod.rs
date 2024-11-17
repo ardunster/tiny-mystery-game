@@ -6,6 +6,7 @@ use crate::tiles::tile_index::{
 use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
+use bevy_ecs_tilemap::prelude::*;
 
 pub const SPRITE_SIZE_PIXELS: u32 = 16;
 
@@ -60,4 +61,49 @@ pub fn spawn_tile_sprite(
             ..default()
         },
     ));
+}
+
+pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
+    commands.spawn(Camera2dBundle::default());
+
+    let tilemap_entity = commands.spawn_empty().id();
+    let map_size = TilemapSize { x: 32, y: 18 };
+    let mut tile_storage = TileStorage::empty(map_size);
+
+    for x in 0..map_size.x {
+        for y in 0..map_size.y {
+            let tile_pos = TilePos { x, y };
+
+            let tile_entity = commands
+                .spawn(TileBundle {
+                    position: tile_pos,
+                    tilemap_id: TilemapId(tilemap_entity),
+                    texture_index: TileTextureIndex(GroundTile::GrassFine as u32),
+                    ..default()
+                })
+                .id();
+            tile_storage.set(&tile_pos, tile_entity);
+        }
+    }
+
+    let tile_size = TilemapTileSize {
+        x: SPRITE_SIZE_PIXELS as f32,
+        y: SPRITE_SIZE_PIXELS as f32,
+    };
+
+    let grid_size = tile_size.into();
+    let map_type = TilemapType::default();
+
+    let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome_packed.png");
+
+    commands.entity(tilemap_entity).insert(TilemapBundle {
+        grid_size,
+        map_type,
+        size: map_size,
+        storage: tile_storage,
+        texture: TilemapTexture::Single(tile_texture),
+        tile_size,
+        transform: get_tilemap_center_transform(&map_size, &grid_size, &map_type, 0.0),
+        ..default()
+    });
 }
