@@ -3,7 +3,7 @@ mod tile_index;
 use crate::tiles::tile_index::{
     Building, Cobble, Critter, Face, Fence, GroundTile, Path, Person, Plant, Water,
 };
-use bevy::color::palettes::css::BISQUE;
+use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 
@@ -48,14 +48,14 @@ pub fn spawn_tile_sprite(
             transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
             sprite: Sprite {
                 custom_size: Some(Vec2::new(100., 100.)),
-                color: Color::from(BISQUE),
+                color: Color::from(GREEN_700),
                 ..default()
             },
             ..default()
         },
         TextureAtlas {
             layout: sprite_atlas.0.clone(),
-            index: Building::HouseChimney as usize,
+            index: GroundTile::GrassFine as usize,
             ..default()
         },
     ));

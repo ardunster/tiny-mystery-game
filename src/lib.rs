@@ -4,5 +4,6 @@ mod personality;
 mod profession;
 pub mod rng;
 mod skills;
+mod terrain;
 pub mod tiles;
 pub mod villagers;

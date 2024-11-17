@@ -72,4 +72,6 @@ pub enum PersonalityTrait {
     Wanderer,
     // More likely to be fearful and evasive about not only misdeeds but also just flaws
     Guilty,
+    // Reduces initial relationship benefit for Family, eliminates for Extended Family
+    BlackSheep,
 }

@@ -19,7 +19,14 @@ fn main() -> AppExit {
                     level: bevy::log::Level::DEBUG,
                     ..default()
                 })
-                .set(ImagePlugin::default_nearest()),
+                .set(ImagePlugin::default_nearest())
+                .set(WindowPlugin {
+                    primary_window: Some(Window {
+                        title: String::from("Tiny Mystery Game"),
+                        ..default()
+                    }),
+                    ..default()
+                }),
         )
         .insert_resource(EnvArgsResource { args })
         .init_resource::<TileSpriteSheet>()
