@@ -1,4 +1,5 @@
 pub mod tile_index;
+use crate::terrain::{TerrainType, TileTerrain};
 use crate::tiles::tile_index::GroundTile;
 use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
@@ -70,13 +71,16 @@ pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
             let tile_pos = TilePos { x, y };
 
             let tile_entity = commands
-                .spawn(TileBundle {
-                    position: tile_pos,
-                    tilemap_id: TilemapId(tilemap_entity),
-                    texture_index: TileTextureIndex(GroundTile::GrassFine as u32),
-                    color: TileColor(Color::from(GREEN_700)),
-                    ..default()
-                })
+                .spawn((
+                    TileBundle {
+                        position: tile_pos,
+                        tilemap_id: TilemapId(tilemap_entity),
+                        texture_index: TileTextureIndex(GroundTile::GrassFine as u32),
+                        color: TileColor(Color::from(GREEN_700)),
+                        ..default()
+                    },
+                    TileTerrain::default(),
+                ))
                 .id();
             tile_storage.set(&tile_pos, tile_entity);
         }
