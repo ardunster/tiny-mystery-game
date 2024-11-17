@@ -16,7 +16,7 @@ fn main() -> AppExit {
         .add_plugins(
             DefaultPlugins
                 .set(LogPlugin {
-                    filter: "info,Playground::Seed=debug,Tilemap=debug".into(),
+                    filter: "info,Playground=debug,Tilemap=debug".into(),
                     level: bevy::log::Level::DEBUG,
                     ..default()
                 })
@@ -30,31 +30,17 @@ fn main() -> AppExit {
                 }),
         )
         .insert_resource(EnvArgsResource { args })
-        // .init_resource::<TileSpriteSheet>()
         .add_plugins(TilemapPlugin)
-        .add_systems(
-            Startup,
-            // (playground, tiles::spawn_tile_sprite, spawn_camera),
-            (spawn_camera, tiles::set_up_tilemap),
-        )
+        .add_systems(PreStartup, set_world_seed)
+        .add_systems(Startup, (playground, spawn_camera, tiles::set_up_tilemap))
         .run()
 }
 
-fn playground(env_args: Res<EnvArgsResource>) {
-    let args = &env_args.args;
-
-    let stringy_seed = if args.len() >= 3 && args[1] == "seed" {
-        debug!(target: "Playground::Seed", "Found seed CLI argument: {}", args[2]);
-        &args[2]
-    } else {
-        debug!(target: "Playground::Seed", "No seed argument found, using default.");
-        "some_seedz"
-    };
-
-    debug!(target: "Playground::Seed", "Resulting seed: {}", stringy_seed);
+fn playground(world_seed: Res<WorldSeed>) {
+    let seed = &world_seed.0;
 
     for position in 0..3 {
-        let seed_with_pos = stringy_seed.to_owned() + &position.to_string();
+        let seed_with_pos = seed.to_owned() + &position.to_string();
 
         debug!(target: "Playground::Villager", "seed with position: {}", seed_with_pos);
         let hash = calculate_hash(&seed_with_pos);
@@ -80,8 +66,6 @@ struct EnvArgsResource {
 #[derive(Resource)]
 struct WorldSeed(String);
 
-// TODO: How to implement an init for seed from resource?!
-
 #[derive(Component)]
 struct Player {}
 
@@ -90,4 +74,20 @@ fn spawn_camera(mut commands: Commands) {
         transform: Transform::from_scale(Vec3::new(0.5, 0.5, 1.0)),
         ..default()
     });
+}
+
+fn set_world_seed(mut commands: Commands, env_args: Res<EnvArgsResource>) {
+    let args = &env_args.args;
+
+    let seed = if args.len() >= 3 && args[1] == "seed" {
+        debug!(target: "PreStartup::SetWorldSeed", "Found seed CLI argument: {}", args[2]);
+        &args[2]
+    } else {
+        debug!(target: "PreStartup::SetWorldSeed", "No seed argument found, using default.");
+        "some_seedz"
+    };
+
+    info!(target: "PreStartup::SetWorldSeed", "Set World Seed: {}", seed);
+
+    commands.insert_resource(WorldSeed(seed.to_string()));
 }
