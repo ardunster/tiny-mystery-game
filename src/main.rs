@@ -16,7 +16,7 @@ fn main() -> AppExit {
         .add_plugins(
             DefaultPlugins
                 .set(LogPlugin {
-                    filter: "info,Playground::Seed=debug".into(),
+                    filter: "info,Playground::Seed=debug,Tilemap=debug".into(),
                     level: bevy::log::Level::DEBUG,
                     ..default()
                 })

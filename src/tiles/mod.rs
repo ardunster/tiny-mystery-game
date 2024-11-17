@@ -64,7 +64,10 @@ pub fn spawn_tile_sprite(
 }
 
 pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2dBundle {
+        transform: Transform::from_scale(Vec3::new(0.5, 0.5, 1.0)),
+        ..default()
+    });
 
     let tilemap_entity = commands.spawn_empty().id();
     let map_size = TilemapSize { x: 32, y: 18 };
@@ -79,6 +82,7 @@ pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
                     position: tile_pos,
                     tilemap_id: TilemapId(tilemap_entity),
                     texture_index: TileTextureIndex(GroundTile::GrassFine as u32),
+                    color: TileColor(Color::from(GREEN_700)),
                     ..default()
                 })
                 .id();
