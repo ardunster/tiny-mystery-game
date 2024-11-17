@@ -74,6 +74,11 @@ struct EnvArgsResource {
     args: Vec<String>,
 }
 
+#[derive(Resource)]
+struct WorldSeed(String);
+
+// TODO: How to implement an init for seed from resource?!
+
 #[derive(Component)]
 struct Player {}
 

@@ -7,17 +7,18 @@ use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 
+pub const SPRITE_SIZE_PIXELS: u32 = 16;
+
 #[derive(Resource)]
 pub struct TileSpriteSheet(Handle<TextureAtlasLayout>);
 
 impl FromWorld for TileSpriteSheet {
     fn from_world(world: &mut World) -> Self {
-        let sprite_size_pixels = 16;
         let spritesheet_padding = 1;
         let spritesheet_rows = 22;
         let spritesheet_columns = 49;
         let texture_atlas = TextureAtlasLayout::from_grid(
-            UVec2::new(sprite_size_pixels, sprite_size_pixels),
+            UVec2::new(SPRITE_SIZE_PIXELS, SPRITE_SIZE_PIXELS),
             spritesheet_columns,
             spritesheet_rows,
             Some(UVec2::new(spritesheet_padding, spritesheet_padding)),
