@@ -96,14 +96,17 @@ pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome_packed.png");
 
-    commands.entity(tilemap_entity).insert(TilemapBundle {
-        grid_size,
-        map_type,
-        size: map_size,
-        storage: tile_storage,
-        texture: TilemapTexture::Single(tile_texture),
-        tile_size,
-        transform: get_tilemap_center_transform(&map_size, &grid_size, &map_type, 0.0),
-        ..default()
-    });
+    commands
+        .entity(tilemap_entity)
+        .insert(TilemapBundle {
+            grid_size,
+            map_type,
+            size: map_size,
+            storage: tile_storage,
+            texture: TilemapTexture::Single(tile_texture),
+            tile_size,
+            transform: Transform::from_xyz(0.0, 0.0, 0.0),
+            ..default()
+        })
+        .insert(TilemapAnchor::Center);
 }
