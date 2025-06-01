@@ -27,4 +27,6 @@ pub enum Profession {
     Tanner,
     CoalBurner,
     Cook,
+    // Has no family or home in town, people don't trust them, probably higher rate of crime too
+    Vagabond,
 }
