@@ -1,6 +1,7 @@
 pub mod tile_index;
 use crate::resources::WorldSeed;
-use crate::terrain::{TerrainType, TileTerrain};
+use crate::rng::calculate_hash;
+use crate::terrain::{get_terrain_sprite_index, TerrainType, TileTerrain};
 use crate::tiles::tile_index::GroundTile;
 use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
@@ -75,17 +76,25 @@ pub fn set_up_tilemap(
     for x in 0..map_size.x {
         for y in 0..map_size.y {
             let tile_pos = TilePos { x, y };
+            let tile_seed = format!("{seed}{x}{y}");
+            let tile_hash = calculate_hash(&tile_seed);
+
+            let terrain_type = TerrainType::Meadow;
+            let terrain_sprite_index = get_terrain_sprite_index(&terrain_type, &tile_hash);
 
             let tile_entity = commands
                 .spawn((
                     TileBundle {
                         position: tile_pos,
                         tilemap_id: TilemapId(tilemap_entity),
-                        texture_index: TileTextureIndex(GroundTile::GrassFine as u32),
+                        texture_index: TileTextureIndex(terrain_sprite_index),
                         color: TileColor(Color::from(GREEN_700)),
                         ..default()
                     },
-                    TileTerrain::default(),
+                    TileTerrain {
+                        terrain_type,
+                        sprite_index: terrain_sprite_index,
+                    },
                 ))
                 .id();
             tile_storage.set(&tile_pos, tile_entity);

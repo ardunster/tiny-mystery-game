@@ -44,10 +44,10 @@ impl Default for TileTerrain {
     }
 }
 
-pub fn get_terrain_sprite_index(terrain_type: TerrainType, hash: &u64) -> u32 {
+pub fn get_terrain_sprite_index(terrain_type: &TerrainType, hash: &u64) -> u32 {
     trace!(target: "Terrain: Sprites", "Getting terrain sprite index...");
     let terrain_sprite_map = map_terrain_to_sprite();
-    let sprite_options = &terrain_sprite_map[&terrain_type];
+    let sprite_options = &terrain_sprite_map[terrain_type];
     let position = position_in_range(&(sprite_options.len() as u64), hash);
     trace!(target: "Terrain: Sprites", "Calculated Position {} from hash {}", position, hash);
 
