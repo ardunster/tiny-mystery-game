@@ -1,11 +1,10 @@
 pub mod tile_index;
 use crate::resources::WorldSeed;
 use crate::rng::calculate_hash;
-use crate::terrain::{get_terrain_sprite_index, TerrainType, TileTerrain};
-use crate::tiles::tile_index::GroundTile;
+use crate::terrain::tile_terrain::TileTerrain;
+use crate::terrain::{get_terrain_sprite_index, TerrainType};
 use bevy::color::palettes::tailwind::GREEN_700;
 use bevy::prelude::*;
-use bevy::window::PrimaryWindow;
 use bevy_ecs_tilemap::prelude::*;
 
 pub const SPRITE_SIZE_PIXELS: u32 = 16;

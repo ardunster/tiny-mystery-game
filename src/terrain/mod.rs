@@ -1,6 +1,8 @@
 // Terrain entity:
 // location, terrain type, secrets, events, descriptions
 
+pub mod tile_terrain;
+
 use crate::rng::{position_in_range, WeightedValue};
 use crate::tiles::tile_index::{GroundTile, Plant};
 use bevy::platform::collections::HashMap;
@@ -46,21 +48,6 @@ pub fn map_terrain_to_sprite() -> HashMap<TerrainType, Vec<u32>> {
         ],
     );
     map
-}
-
-#[derive(Component)]
-pub struct TileTerrain {
-    pub terrain_type: TerrainType,
-    pub sprite_index: u32,
-}
-
-impl Default for TileTerrain {
-    fn default() -> Self {
-        Self {
-            terrain_type: TerrainType::Empty,
-            sprite_index: GroundTile::Empty.into(),
-        }
-    }
 }
 
 pub fn get_terrain_sprite_index(terrain_type: &TerrainType, hash: &u64) -> u32 {
