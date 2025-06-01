@@ -1,7 +1,7 @@
 // Terrain entity:
 // location, terrain type, secrets, events, descriptions
 
-use crate::rng::position_in_range;
+use crate::rng::{position_in_range, WeightedValue};
 use crate::tiles::tile_index::{GroundTile, Plant};
 use bevy::platform::collections::HashMap;
 use bevy::prelude::Component;
@@ -13,6 +13,25 @@ pub enum TerrainType {
     Forest,
     Meadow,
 }
+
+pub const MEADOW_SPRITE_WEIGHTS: [WeightedValue<u32>; 4] = [
+    WeightedValue {
+        value: GroundTile::GrassFine as u32,
+        weight: 3,
+    },
+    WeightedValue {
+        value: GroundTile::GrassFlower as u32,
+        weight: 1,
+    },
+    WeightedValue {
+        value: GroundTile::GrassMixed as u32,
+        weight: 1,
+    },
+    WeightedValue {
+        value: GroundTile::GrassThick as u32,
+        weight: 1,
+    },
+];
 
 pub fn map_terrain_to_sprite() -> HashMap<TerrainType, Vec<u32>> {
     let mut map = HashMap::<TerrainType, Vec<u32>>::new();

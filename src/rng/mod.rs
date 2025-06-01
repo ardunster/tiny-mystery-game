@@ -1,5 +1,11 @@
 use std::hash::{DefaultHasher, Hash, Hasher};
 
+#[derive(Clone)]
+pub struct WeightedValue<T> {
+    pub value: T,
+    pub weight: u64,
+}
+
 pub fn calculate_hash<T: Hash>(t: &T) -> u64 {
     let mut s = DefaultHasher::new();
     t.hash(&mut s);
@@ -12,6 +18,27 @@ pub fn coin_flip(hash: &u64) -> bool {
 
 pub fn position_in_range(max: &u64, hash: &u64) -> u64 {
     hash % max
+}
+
+pub fn choose_weighted_value<T>(options: &[WeightedValue<T>], hash: u64) -> Option<&T> {
+    let total_weight: u64 = options
+        .iter()
+        .map(|weighted_value| weighted_value.weight)
+        .sum();
+    if total_weight == 0 {
+        return None;
+    }
+
+    let mut threshold = position_in_range(&total_weight, &hash);
+    for item in options {
+        let weight = item.weight;
+        if threshold < weight {
+            return Some(&item.value);
+        }
+        threshold -= weight;
+    }
+
+    None
 }
 
 #[cfg(test)]
