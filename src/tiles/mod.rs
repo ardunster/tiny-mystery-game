@@ -1,4 +1,5 @@
 pub mod tile_index;
+use crate::resources::WorldSeed;
 use crate::terrain::{TerrainType, TileTerrain};
 use crate::tiles::tile_index::GroundTile;
 use bevy::color::palettes::tailwind::GREEN_700;
@@ -61,7 +62,12 @@ impl FromWorld for TileSpriteSheet {
 //     ));
 // }
 
-pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn set_up_tilemap(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    world_seed: Res<WorldSeed>,
+) {
+    let seed = &world_seed.as_str();
     let tilemap_entity = commands.spawn_empty().id();
     let map_size = TilemapSize { x: 32, y: 18 };
     let mut tile_storage = TileStorage::empty(map_size);

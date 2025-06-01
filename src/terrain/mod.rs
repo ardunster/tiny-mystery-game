@@ -1,10 +1,11 @@
 // Terrain entity:
 // location, terrain type, secrets, events, descriptions
 
+use crate::rng::position_in_range;
+use crate::tiles::tile_index::{GroundTile, Plant};
 use bevy::platform::collections::HashMap;
 use bevy::prelude::Component;
-
-use crate::tiles::tile_index::{GroundTile, Plant};
+use log::trace;
 
 #[derive(Eq, Hash, PartialEq)]
 pub enum TerrainType {
@@ -41,4 +42,14 @@ impl Default for TileTerrain {
             sprite_index: GroundTile::Empty as u32,
         }
     }
+}
+
+pub fn get_terrain_sprite_index(terrain_type: TerrainType, hash: &u64) -> u32 {
+    trace!(target: "Terrain: Sprites", "Getting terrain sprite index...");
+    let terrain_sprite_map = map_terrain_to_sprite();
+    let sprite_options = &terrain_sprite_map[&terrain_type];
+    let position = position_in_range(&(sprite_options.len() as u64), hash);
+    trace!(target: "Terrain: Sprites", "Calculated Position {} from hash {}", position, hash);
+
+    sprite_options[position as usize]
 }
