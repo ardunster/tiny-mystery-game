@@ -4,6 +4,7 @@ use bevy::window::PrimaryWindow;
 use bevy_ecs_tilemap::TilemapPlugin;
 use std::env;
 use tiny_mystery_game::names::{get_first_name, get_surname};
+use tiny_mystery_game::resources::{EnvArgsResource, WorldSeed};
 use tiny_mystery_game::rng::{calculate_hash, coin_flip};
 use tiny_mystery_game::tiles;
 use tiny_mystery_game::tiles::TileSpriteSheet;
@@ -44,7 +45,7 @@ fn main() -> AppExit {
 }
 
 fn playground(world_seed: Res<WorldSeed>) {
-    let seed = &world_seed.0;
+    let seed = world_seed.as_str();
 
     for position in 0..3 {
         let seed_with_pos = seed.to_owned() + &position.to_string();
@@ -66,14 +67,6 @@ fn playground(world_seed: Res<WorldSeed>) {
 
     debug!(target: "Playground::Tilemap", "Tilemap stuff");
 }
-
-#[derive(Resource)]
-struct EnvArgsResource {
-    args: Vec<String>,
-}
-
-#[derive(Resource)]
-struct WorldSeed(String);
 
 #[derive(Component)]
 struct Player {}

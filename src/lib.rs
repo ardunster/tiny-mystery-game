@@ -2,6 +2,7 @@ mod conditions;
 pub mod names;
 mod personality;
 mod profession;
+pub mod resources;
 pub mod rng;
 mod skills;
 mod terrain;
