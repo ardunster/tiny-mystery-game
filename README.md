@@ -14,6 +14,8 @@ Turn off dead code compilation warnings while prototyping:
 export RUSTFLAGS="$RUSTFLAGS -A dead_code"
 ```
 
+Set `RUSTFLAGS` to an empty string or `echo $RUSTFLAGS` to check the prior value to reset when done.
+
 Run the app:
 
 ```bash

@@ -1,8 +1,8 @@
 // Terrain entity:
 // location, terrain type, secrets, events, descriptions
 
+use bevy::platform::collections::HashMap;
 use bevy::prelude::Component;
-use bevy::utils::HashMap;
 
 use crate::tiles::tile_index::{GroundTile, Plant};
 

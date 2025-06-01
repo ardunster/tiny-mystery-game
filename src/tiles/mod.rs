@@ -32,34 +32,34 @@ impl FromWorld for TileSpriteSheet {
     }
 }
 
-pub fn spawn_tile_sprite(
-    mut commands: Commands,
-    sprite_atlas: Res<TileSpriteSheet>,
-    asset_server: Res<AssetServer>,
-    window_query: Query<&Window, With<PrimaryWindow>>,
-) {
-    let window: &Window = window_query.get_single().unwrap();
-
-    let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome-transparent.png");
-
-    commands.spawn((
-        SpriteBundle {
-            texture: tile_texture,
-            transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
-            sprite: Sprite {
-                custom_size: Some(Vec2::new(100., 100.)),
-                color: Color::from(GREEN_700),
-                ..default()
-            },
-            ..default()
-        },
-        TextureAtlas {
-            layout: sprite_atlas.0.clone(),
-            index: GroundTile::GrassFine as usize,
-            ..default()
-        },
-    ));
-}
+// pub fn spawn_tile_sprite(
+//     mut commands: Commands,
+//     sprite_atlas: Res<TileSpriteSheet>,
+//     asset_server: Res<AssetServer>,
+//     window_query: Query<&Window, With<PrimaryWindow>>,
+// ) {
+//     let window: &Window = window_query.get_single().unwrap();
+//
+//     let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome-transparent.png");
+//
+//     commands.spawn((
+//         SpriteBundle {
+//             texture: tile_texture,
+//             transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
+//             sprite: Sprite {
+//                 custom_size: Some(Vec2::new(100., 100.)),
+//                 color: Color::from(GREEN_700),
+//                 ..default()
+//             },
+//             ..default()
+//         },
+//         TextureAtlas {
+//             layout: sprite_atlas.0.clone(),
+//             index: GroundTile::GrassFine as usize,
+//             ..default()
+//         },
+//     ));
+// }
 
 pub fn set_up_tilemap(mut commands: Commands, asset_server: Res<AssetServer>) {
     let tilemap_entity = commands.spawn_empty().id();

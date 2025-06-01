@@ -79,10 +79,12 @@ struct WorldSeed(String);
 struct Player {}
 
 fn spawn_camera(mut commands: Commands) {
-    commands.spawn(Camera2dBundle {
-        transform: Transform::from_scale(Vec3::new(0.5, 0.5, 1.0)),
-        ..default()
-    });
+    commands.spawn((
+        Camera2d,
+        Camera { ..default() },
+        Transform::from_scale(Vec3::new(0.5, 0.5, 1.0)),
+        GlobalTransform::default(), // ..default()
+    ));
 }
 
 fn set_world_seed(mut commands: Commands, env_args: Res<EnvArgsResource>) {
