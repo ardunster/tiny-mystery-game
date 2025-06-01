@@ -2,6 +2,9 @@ use crate::terrain::TerrainType;
 use crate::tiles::tile_index::GroundTile;
 use bevy::prelude::Component;
 
+// Terrain entity:
+// location, terrain type, secrets, events, descriptions
+
 #[derive(Component)]
 pub struct TileTerrain {
     pub terrain_type: TerrainType,

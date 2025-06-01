@@ -1,6 +1,4 @@
-// Terrain entity:
-// location, terrain type, secrets, events, descriptions
-
+pub mod terrain_grid;
 pub mod tile_terrain;
 
 use crate::rng::{position_in_range, WeightedValue};
