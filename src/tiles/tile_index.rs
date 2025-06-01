@@ -1,3 +1,4 @@
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum GroundTile {
     Empty = 0,
     GrassMixed = 1,
@@ -14,6 +15,7 @@ pub enum GroundTile {
     Rock = 103,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Cobble {
     NorthWestCorner = 18,
     North = 19,
@@ -34,6 +36,7 @@ pub enum Cobble {
     SlantSouthEast = 218,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Person {
     PriestRobe = 24,
     Person = 25,
@@ -73,6 +76,7 @@ pub enum Person {
     Ranger = 471,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Face {
     Boy = 514,
     Girl = 515,
@@ -84,6 +88,7 @@ pub enum Face {
     WomanStraightBangs = 521,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Plant {
     ConiferFlat = 49,
     ConiferRough = 50,
@@ -109,6 +114,7 @@ pub enum Plant {
     VineSprouts = 311,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Path {
     StraightNorthSouth = 57,
     CornerSouthToEast = 58,
@@ -124,6 +130,7 @@ pub enum Path {
     BridgeFlatBroken = 262,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Fence {
     PicketShort = 147,
     PicketPointed = 148,
@@ -137,6 +144,7 @@ pub enum Fence {
     IronGateClosed = 201,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Water {
     StraightNorthSouth = 204,
     CornerSouthToEast = 205,
@@ -152,6 +160,7 @@ pub enum Water {
     PoolTrickleFromNorth = 259,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Critter {
     Scorpion = 269,
     Crab = 270,
@@ -173,6 +182,7 @@ pub enum Critter {
     Rat = 423,
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Building {
     Watchtower = 508,
     HouseAFrame = 509,

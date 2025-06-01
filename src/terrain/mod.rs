@@ -16,33 +16,33 @@ pub enum TerrainType {
 
 pub const MEADOW_SPRITE_WEIGHTS: [WeightedValue<u32>; 4] = [
     WeightedValue {
-        value: GroundTile::GrassFine as u32,
+        value: GroundTile::GrassFine.into(),
         weight: 3,
     },
     WeightedValue {
-        value: GroundTile::GrassFlower as u32,
+        value: GroundTile::GrassFlower.into(),
         weight: 1,
     },
     WeightedValue {
-        value: GroundTile::GrassMixed as u32,
+        value: GroundTile::GrassMixed.into(),
         weight: 1,
     },
     WeightedValue {
-        value: GroundTile::GrassThick as u32,
+        value: GroundTile::GrassThick.into(),
         weight: 1,
     },
 ];
 
 pub fn map_terrain_to_sprite() -> HashMap<TerrainType, Vec<u32>> {
     let mut map = HashMap::<TerrainType, Vec<u32>>::new();
-    map.insert(TerrainType::Forest, vec![Plant::Deciduous as u32]);
+    map.insert(TerrainType::Forest, vec![Plant::Deciduous.into()]);
     map.insert(
         TerrainType::Meadow,
         vec![
-            GroundTile::GrassFine as u32,
-            GroundTile::GrassFlower as u32,
-            GroundTile::GrassMixed as u32,
-            GroundTile::GrassThick as u32,
+            GroundTile::GrassFine.into(),
+            GroundTile::GrassFlower.into(),
+            GroundTile::GrassMixed.into(),
+            GroundTile::GrassThick.into(),
         ],
     );
     map
@@ -58,7 +58,7 @@ impl Default for TileTerrain {
     fn default() -> Self {
         Self {
             terrain_type: TerrainType::Empty,
-            sprite_index: GroundTile::Empty as u32,
+            sprite_index: GroundTile::Empty.into(),
         }
     }
 }
