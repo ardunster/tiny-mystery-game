@@ -1,7 +1,8 @@
 pub mod terrain_grid;
 pub mod tile_terrain;
 
-use crate::rng::{position_in_range, WeightedValue};
+use crate::rng::{choose_weighted_value, position_in_range, WeightedValue};
+use crate::terrain::terrain_grid::TerrainGrid;
 use crate::tiles::tile_index::{GroundTile, Plant, TileIndex};
 use bevy::platform::collections::HashMap;
 use log::trace;
@@ -31,6 +32,14 @@ pub const MEADOW_SPRITE_WEIGHTS: [WeightedValue<u32>; 4] = [
         weight: 1,
     },
 ];
+
+pub type SpriteIndexPicker = fn(hash: u64, grid: &TerrainGrid, x: u32, y: u32) -> u32;
+
+pub fn choose_meadow_sprite(hash: u64, _grid: &TerrainGrid, _x: u32, _y: u32) -> u32 {
+    choose_weighted_value(&MEADOW_SPRITE_WEIGHTS, hash)
+        .copied()
+        .unwrap_or(GroundTile::GrassFine.index())
+}
 
 pub fn map_terrain_to_sprite() -> HashMap<TerrainType, Vec<u32>> {
     let mut map = HashMap::<TerrainType, Vec<u32>>::new();
