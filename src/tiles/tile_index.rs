@@ -1,3 +1,22 @@
+pub trait TileIndex {
+    fn index(self) -> u32;
+}
+
+macro_rules! impl_tile_index {
+    ($t:ty) => {
+        impl TileIndex for $t {
+            fn index(self) -> u32 {
+                self as u32
+            }
+        }
+        impl fmt::Display for $t {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(f, "{:?} ({})", self, *self.index())
+            }
+        }
+    };
+}
+
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum GroundTile {
     Empty = 0,
@@ -14,6 +33,7 @@ pub enum GroundTile {
     Ladder = 70,
     Rock = 103,
 }
+impl_tile_index!(GroundTile);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Cobble {
@@ -35,6 +55,7 @@ pub enum Cobble {
     SlantSouthWest = 216,
     SlantSouthEast = 218,
 }
+impl_tile_index!(Cobble);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Person {
@@ -75,6 +96,7 @@ pub enum Person {
     Ninja = 470,
     Ranger = 471,
 }
+impl_tile_index!(Person);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Face {
@@ -87,6 +109,7 @@ pub enum Face {
     WomanBangs = 520,
     WomanStraightBangs = 521,
 }
+impl_tile_index!(Face);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Plant {
@@ -113,6 +136,7 @@ pub enum Plant {
     FlowerSprouts = 310,
     VineSprouts = 311,
 }
+impl_tile_index!(Plant);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Path {
@@ -129,6 +153,7 @@ pub enum Path {
     BridgeFlatPlanks = 261,
     BridgeFlatBroken = 262,
 }
+impl_tile_index!(Path);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Fence {
@@ -143,6 +168,7 @@ pub enum Fence {
     IronGateOpen = 200,
     IronGateClosed = 201,
 }
+impl_tile_index!(Fence);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Water {
@@ -159,6 +185,7 @@ pub enum Water {
     TrickleCornerSouthToEast = 258,
     PoolTrickleFromNorth = 259,
 }
+impl_tile_index!(Water);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Critter {
@@ -181,6 +208,7 @@ pub enum Critter {
     Bear = 422,
     Rat = 423,
 }
+impl_tile_index!(Critter);
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Building {
@@ -200,3 +228,4 @@ pub enum Building {
     HouseChimney = 1030,
     HousePillars = 1031,
 }
+impl_tile_index!(Building);

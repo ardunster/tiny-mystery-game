@@ -7,7 +7,7 @@ use bevy::platform::collections::HashMap;
 use bevy::prelude::Component;
 use log::trace;
 
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Eq, Hash, PartialEq, Debug)]
 pub enum TerrainType {
     Empty,
     Forest,
