@@ -1,6 +1,7 @@
 pub mod tile_index;
 use crate::resources::WorldSeed;
 use crate::rng::calculate_hash;
+use crate::terrain::terrain_grid::{TerrainGrid, TerrainGridSize};
 use crate::terrain::tile_terrain::TileTerrain;
 use crate::terrain::{get_terrain_sprite_index, TerrainType};
 use bevy::color::palettes::tailwind::GREEN_700;
@@ -67,9 +68,13 @@ pub fn set_up_tilemap(
     asset_server: Res<AssetServer>,
     world_seed: Res<WorldSeed>,
 ) {
+    let map_x = 32;
+    let map_y = 16;
     let seed = &world_seed.as_str();
     let tilemap_entity = commands.spawn_empty().id();
-    let map_size = TilemapSize { x: 32, y: 18 };
+    let terrain_grid_size = TerrainGridSize { x: map_x, y: map_y };
+    let terrain_grid = TerrainGrid::new_empty(map_x, map_y);
+    let map_size = TilemapSize { x: map_x, y: map_y };
     let mut tile_storage = TileStorage::empty(map_size);
 
     for x in 0..map_size.x {
@@ -79,7 +84,12 @@ pub fn set_up_tilemap(
             let tile_hash = calculate_hash(&tile_seed);
 
             let terrain_type = TerrainType::Meadow;
-            let terrain_sprite_index = get_terrain_sprite_index(&terrain_type, &tile_hash);
+            let terrain_sprite_index = get_terrain_sprite_index(
+                &tile_hash,
+                &terrain_type,
+                &terrain_grid,
+                &terrain_grid_size,
+            );
 
             let tile_entity = commands
                 .spawn((
