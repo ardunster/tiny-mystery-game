@@ -38,15 +38,26 @@ pub const FOREST_SPRITE_WEIGHTS: [WeightedValue<u32>; 1] = [WeightedValue {
     weight: 3,
 }];
 
-pub type SpriteIndexPicker = fn(hash: u64, grid: &TerrainGrid, x: u32, y: u32) -> u32;
+pub type SpriteIndexPicker =
+    fn(hash: u64, grid: &TerrainGrid, x: u32, y: u32) -> u32;
 
-pub fn pick_meadow_sprite_index(hash: u64, _grid: &TerrainGrid, _x: u32, _y: u32) -> u32 {
+pub fn pick_meadow_sprite_index(
+    hash: u64,
+    _grid: &TerrainGrid,
+    _x: u32,
+    _y: u32,
+) -> u32 {
     choose_weighted_value(&MEADOW_SPRITE_WEIGHTS, hash)
         .copied()
         .unwrap_or(GroundTile::GrassFine.index())
 }
 
-pub fn pick_forest_sprite_index(hash: u64, _grid: &TerrainGrid, _x: u32, _y: u32) -> u32 {
+pub fn pick_forest_sprite_index(
+    hash: u64,
+    _grid: &TerrainGrid,
+    _x: u32,
+    _y: u32,
+) -> u32 {
     choose_weighted_value(&FOREST_SPRITE_WEIGHTS, hash)
         .copied()
         .unwrap_or(Plant::Deciduous.index())
@@ -67,7 +78,8 @@ pub fn map_terrain_to_sprite() -> HashMap<TerrainType, Vec<u32>> {
     map
 }
 
-pub fn map_terrain_to_sprite_index_picker() -> HashMap<TerrainType, SpriteIndexPicker> {
+pub fn map_terrain_to_sprite_index_picker(
+) -> HashMap<TerrainType, SpriteIndexPicker> {
     let mut map = HashMap::<TerrainType, SpriteIndexPicker>::new();
     map.insert(TerrainType::Meadow, pick_meadow_sprite_index);
     map.insert(TerrainType::Forest, pick_forest_sprite_index);
@@ -89,7 +101,10 @@ pub fn get_terrain_sprite_index(
         terrain_grid_size.x,
         terrain_grid_size.y,
     );
-    trace!(target: "Terrain: Sprites", "Calculated Sprite Index {} from hash {}", sprite_index, hash);
+    trace!(
+        target: "Terrain: Sprites", "Calculated Sprite Index {} from hash {}",
+        sprite_index,
+        hash);
 
     sprite_index
 }

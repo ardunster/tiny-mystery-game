@@ -83,7 +83,10 @@ mod tests {
     use super::*;
     use crate::terrain::TerrainType;
 
-    fn make_terrain(terrain_type: TerrainType, sprite_index: u32) -> TileTerrain {
+    fn make_terrain(
+        terrain_type: TerrainType,
+        sprite_index: u32,
+    ) -> TileTerrain {
         TileTerrain {
             terrain_type,
             sprite_index,

@@ -20,7 +20,10 @@ pub fn position_in_range(max: &u64, hash: &u64) -> u64 {
     hash % max
 }
 
-pub fn choose_weighted_value<T>(options: &[WeightedValue<T>], hash: u64) -> Option<&T> {
+pub fn choose_weighted_value<T>(
+    options: &[WeightedValue<T>],
+    hash: u64,
+) -> Option<&T> {
     let total_weight: u64 = options
         .iter()
         .map(|weighted_value| weighted_value.weight)

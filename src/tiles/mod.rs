@@ -118,7 +118,8 @@ pub fn set_up_tilemap(
     let grid_size = tile_size.into();
     let map_type = TilemapType::default();
 
-    let tile_texture: Handle<Image> = asset_server.load("sprites/monochrome_packed.png");
+    let tile_texture: Handle<Image> =
+        asset_server.load("sprites/monochrome_packed.png");
 
     commands
         .entity(tilemap_entity)
