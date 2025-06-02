@@ -122,4 +122,33 @@ mod tests {
         );
         assert_eq!(adjacent_to_center.west.unwrap().sprite_index, 3);
     }
+
+    #[test]
+    fn test_get_adjacent_edges() {
+        let grid = TerrainGrid::new_empty(3, 3);
+
+        let top_left_adjacent = grid.get_adjacent(0, 0);
+        assert!(top_left_adjacent.north.is_none());
+        assert!(top_left_adjacent.west.is_none());
+        assert!(top_left_adjacent.east.is_some());
+        assert!(top_left_adjacent.south.is_some());
+
+        let top_right_adjacent = grid.get_adjacent(2, 0);
+        assert!(top_right_adjacent.north.is_none());
+        assert!(top_right_adjacent.west.is_some());
+        assert!(top_right_adjacent.east.is_none());
+        assert!(top_right_adjacent.south.is_some());
+
+        let bottom_right_adjacent = grid.get_adjacent(2, 2);
+        assert!(bottom_right_adjacent.north.is_some());
+        assert!(bottom_right_adjacent.west.is_some());
+        assert!(bottom_right_adjacent.east.is_none());
+        assert!(bottom_right_adjacent.south.is_none());
+
+        let bottom_left_adjacent = grid.get_adjacent(0, 2);
+        assert!(bottom_left_adjacent.north.is_some());
+        assert!(bottom_left_adjacent.west.is_none());
+        assert!(bottom_left_adjacent.east.is_some());
+        assert!(bottom_left_adjacent.south.is_none());
+    }
 }
