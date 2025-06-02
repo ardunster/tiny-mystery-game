@@ -88,10 +88,14 @@ mod tests {
     #[test]
     fn test_get_adjacent_corners() {
         let mut grid = TerrainGrid::new_empty(3, 3);
+        // North
         *grid.get_mut(1, 0) = make_terrain(TerrainType::Meadow, 1);
+        // East
         *grid.get_mut(2, 1) = make_terrain(TerrainType::Forest, 1);
-        *grid.get_mut(0, 1) = make_terrain(TerrainType::Meadow, 2);
-        *grid.get_mut(1, 2) = make_terrain(TerrainType::Meadow, 3);
+        // South
+        *grid.get_mut(1, 2) = make_terrain(TerrainType::Meadow, 2);
+        // West
+        *grid.get_mut(0, 1) = make_terrain(TerrainType::Meadow, 3);
 
         let adjacent_to_center = grid.get_adjacent(1, 1);
         assert_eq!(
@@ -110,12 +114,12 @@ mod tests {
             adjacent_to_center.south.unwrap().terrain_type,
             TerrainType::Meadow
         );
-        assert_eq!(adjacent_to_center.south.unwrap().sprite_index, 1);
+        assert_eq!(adjacent_to_center.south.unwrap().sprite_index, 2);
 
         assert_eq!(
             adjacent_to_center.west.unwrap().terrain_type,
             TerrainType::Meadow
         );
-        assert_eq!(adjacent_to_center.west.unwrap().sprite_index, 1);
+        assert_eq!(adjacent_to_center.west.unwrap().sprite_index, 3);
     }
 }
