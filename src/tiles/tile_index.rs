@@ -9,9 +9,9 @@ macro_rules! impl_tile_index {
                 self as u32
             }
         }
-        impl fmt::Display for $t {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "{:?} ({})", self, *self.index())
+        impl std::fmt::Display for $t {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(f, "{:?} ({})", self, self.index())
             }
         }
     };

@@ -2,12 +2,11 @@ pub mod terrain_grid;
 pub mod tile_terrain;
 
 use crate::rng::{position_in_range, WeightedValue};
-use crate::tiles::tile_index::{GroundTile, Plant};
+use crate::tiles::tile_index::{GroundTile, Plant, TileIndex};
 use bevy::platform::collections::HashMap;
-use bevy::prelude::Component;
 use log::trace;
 
-#[derive(Eq, Hash, PartialEq, Debug)]
+#[derive(Eq, Hash, PartialEq, Debug, Clone)]
 pub enum TerrainType {
     Empty,
     Forest,
@@ -16,33 +15,33 @@ pub enum TerrainType {
 
 pub const MEADOW_SPRITE_WEIGHTS: [WeightedValue<u32>; 4] = [
     WeightedValue {
-        value: GroundTile::GrassFine.into(),
+        value: GroundTile::GrassFine as u32,
         weight: 3,
     },
     WeightedValue {
-        value: GroundTile::GrassFlower.into(),
+        value: GroundTile::GrassFlower as u32,
         weight: 1,
     },
     WeightedValue {
-        value: GroundTile::GrassMixed.into(),
+        value: GroundTile::GrassMixed as u32,
         weight: 1,
     },
     WeightedValue {
-        value: GroundTile::GrassThick.into(),
+        value: GroundTile::GrassThick as u32,
         weight: 1,
     },
 ];
 
 pub fn map_terrain_to_sprite() -> HashMap<TerrainType, Vec<u32>> {
     let mut map = HashMap::<TerrainType, Vec<u32>>::new();
-    map.insert(TerrainType::Forest, vec![Plant::Deciduous.into()]);
+    map.insert(TerrainType::Forest, vec![Plant::Deciduous.index()]);
     map.insert(
         TerrainType::Meadow,
         vec![
-            GroundTile::GrassFine.into(),
-            GroundTile::GrassFlower.into(),
-            GroundTile::GrassMixed.into(),
-            GroundTile::GrassThick.into(),
+            GroundTile::GrassFine.index(),
+            GroundTile::GrassFlower.index(),
+            GroundTile::GrassMixed.index(),
+            GroundTile::GrassThick.index(),
         ],
     );
     map

@@ -17,7 +17,7 @@ pub struct AdjacentTiles<'a> {
 
 impl TerrainGrid {
     pub fn new(width: u32, height: u32, fill: TileTerrain) -> TerrainGrid {
-        let data = vec![fill; (width * height).into()];
+        let data = vec![fill; (width * height) as usize];
         Self {
             width,
             height,
@@ -26,7 +26,7 @@ impl TerrainGrid {
     }
 
     pub fn new_empty(width: u32, height: u32) -> TerrainGrid {
-        let data = vec![TileTerrain::default(); (width * height).into()];
+        let data = vec![TileTerrain::default(); (width * height) as usize];
         Self {
             width,
             height,
@@ -35,7 +35,7 @@ impl TerrainGrid {
     }
 
     fn index(&self, x: u32, y: u32) -> usize {
-        (y * self.width + x).into()
+        (y * self.width + x) as usize
     }
 
     pub fn get(&self, x: u32, y: u32) -> &TileTerrain {
@@ -43,7 +43,8 @@ impl TerrainGrid {
     }
 
     pub fn get_mut(&mut self, x: u32, y: u32) -> &mut TileTerrain {
-        &mut self.data[self.index(x, y)]
+        let i = self.index(x, y);
+        &mut self.data[i]
     }
 
     pub fn get_adjacent(&self, x: u32, y: u32) -> AdjacentTiles {
@@ -69,5 +70,52 @@ impl TerrainGrid {
                 None
             },
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::terrain::TerrainType;
+
+    fn make_terrain(terrain_type: TerrainType, sprite_index: u32) -> TileTerrain {
+        TileTerrain {
+            terrain_type,
+            sprite_index,
+        }
+    }
+
+    #[test]
+    fn test_get_adjacent_corners() {
+        let mut grid = TerrainGrid::new_empty(3, 3);
+        *grid.get_mut(1, 0) = make_terrain(TerrainType::Meadow, 1);
+        *grid.get_mut(2, 1) = make_terrain(TerrainType::Forest, 1);
+        *grid.get_mut(0, 1) = make_terrain(TerrainType::Meadow, 2);
+        *grid.get_mut(1, 2) = make_terrain(TerrainType::Meadow, 3);
+
+        let adjacent_to_center = grid.get_adjacent(1, 1);
+        assert_eq!(
+            adjacent_to_center.north.unwrap().terrain_type,
+            TerrainType::Meadow
+        );
+        assert_eq!(adjacent_to_center.north.unwrap().sprite_index, 1);
+
+        assert_eq!(
+            adjacent_to_center.east.unwrap().terrain_type,
+            TerrainType::Forest
+        );
+        assert_eq!(adjacent_to_center.east.unwrap().sprite_index, 1);
+
+        assert_eq!(
+            adjacent_to_center.south.unwrap().terrain_type,
+            TerrainType::Meadow
+        );
+        assert_eq!(adjacent_to_center.south.unwrap().sprite_index, 1);
+
+        assert_eq!(
+            adjacent_to_center.west.unwrap().terrain_type,
+            TerrainType::Meadow
+        );
+        assert_eq!(adjacent_to_center.west.unwrap().sprite_index, 1);
     }
 }
