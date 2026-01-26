@@ -2,9 +2,16 @@
 
 Tiny mystery game
 
-## AI Use
+## LLM Use
 
-Some AI was used to help generate content such as lists of possible names for procedural generation to select from, and to flesh out content such as what items might be found at a blacksmith's shop. All actual text content and code is handwritten.
+An LLM was used for:
+
+- to help generate some content such as lists of possible names for procedural generation to select from
+- to flesh out content such as what items might be found at a blacksmith's shop
+- to help learn Rust and Bevy syntax
+- to explore game design issues through discussion to better understand options and pros/cons of various approaches
+
+All actual text content and code is handwritten.
 
 ## Commands
 
