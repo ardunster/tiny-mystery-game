@@ -3,11 +3,11 @@ use crate::rng::{calculate_hash, coin_flip};
 use bevy::app::App;
 use bevy::prelude::*;
 
-struct VillagerPlugin;
+pub struct VillagerPlugin;
 
 impl Plugin for VillagerPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, generate_villager);
+    fn build(&self, _app: &mut App) {
+        // app.add_systems(Startup, generate_villager);
     }
 }
 
@@ -15,25 +15,53 @@ impl Plugin for VillagerPlugin {
 pub struct Villager;
 
 #[derive(Component)]
-pub struct Name(String);
+pub struct GivenName(String);
 
-#[derive(Component, PartialEq)]
+#[derive(Component, PartialEq, Clone, Copy)]
 pub enum Gender {
     Male,
     Female,
 }
 
-fn generate_villager(mut commands: Commands) {
-    // TODO: Put seed in world and get it from world somehow later
-    let stringy_seed = "some_seed".to_string();
+#[derive(Component)]
+pub struct MemberOfFamily(pub Entity);
 
-    let hash = calculate_hash(&stringy_seed);
+#[derive(Component)]
+pub struct HeadOfHousehold;
+
+fn generate_villager(
+    mut commands: Commands,
+    seed: &str,
+    position_key: u32,
+    family: Entity,
+    is_head: bool,
+) -> Entity {
+    let seed_with_pos = seed.to_owned() + &position_key.to_string();
+    debug!(target: "Villager::Generate", "seed with position: {}", seed_with_pos);
+
+    let hash = calculate_hash(&seed_with_pos);
+    debug!(target: "Villager::Generate", "hash: {}", hash);
 
     let gender = match coin_flip(&hash) {
         true => Gender::Male,
         false => Gender::Female,
     };
 
-    let name = get_first_name(&hash, &gender);
-    commands.spawn((Villager, Name(name.to_string())));
+    let given_name = get_first_name(&hash, &gender);
+
+    debug!(target: "Villager::Generate", "Name and gender: {} {}", given_name, gender);
+    let mut villager_entity = commands.spawn((
+        Villager,
+        GivenName(given_name.to_string()),
+        gender,
+        MemberOfFamily(family),
+    ));
+
+    if (is_head) {
+        villager_entity.insert(HeadOfHousehold);
+    }
+
+    debug!(target: "Villager::Generate", "villager_entity: {}", villager_entity);
+
+    villager_entity.id()
 }
