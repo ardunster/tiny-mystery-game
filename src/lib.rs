@@ -7,4 +7,5 @@ pub mod rng;
 mod skills;
 mod terrain;
 pub mod tiles;
+pub mod village_generation;
 pub mod villagers;

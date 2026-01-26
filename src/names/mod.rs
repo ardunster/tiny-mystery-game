@@ -478,14 +478,14 @@ pub fn get_first_name(hash: &u64, gender: &Gender) -> String {
         Gender::Male => {
             trace!(target: "Names: Male", "Getting male name...");
             let position =
-                position_in_range(&(MALE_FIRST_NAMES.len() as u64), hash);
+                position_in_range(&0, &(MALE_FIRST_NAMES.len() as u64), hash);
             trace!(target: "Names: Male", "Calculated Position {} from hash {}", position, hash);
             MALE_FIRST_NAMES[position as usize].to_string()
         }
         Gender::Female => {
             trace!(target: "Names: Female", "Getting female name...");
             let position =
-                position_in_range(&(FEMALE_FIRST_NAMES.len() as u64), hash);
+                position_in_range(&0, &(FEMALE_FIRST_NAMES.len() as u64), hash);
             trace!(target: "Names: Female", "Calculated Position {} from hash {}", position, hash);
             FEMALE_FIRST_NAMES[position as usize].to_string()
         }
@@ -494,7 +494,7 @@ pub fn get_first_name(hash: &u64, gender: &Gender) -> String {
 
 pub fn get_surname(hash: &u64) -> String {
     trace!(target: "Names: Surname", "Getting surname...");
-    let position = position_in_range(&(SURNAMES.len() as u64), hash);
+    let position = position_in_range(&0, &(SURNAMES.len() as u64), hash);
     trace!(target: "Names: Surname", "Calculated Position {} from hash {}", position, hash);
     SURNAMES[position as usize].to_string()
 }

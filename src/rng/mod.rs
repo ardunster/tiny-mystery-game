@@ -16,7 +16,7 @@ pub fn coin_flip(hash: &u64) -> bool {
     hash % 2 == 0
 }
 
-pub fn position_in_range(max: &u64, hash: &u64) -> u64 {
+pub fn position_in_range(min: &u64, max: &u64, hash: &u64) -> u64 {
     hash % max
 }
 
@@ -32,7 +32,7 @@ pub fn choose_weighted_value<T>(
         return None;
     }
 
-    let mut threshold = position_in_range(&total_weight, &hash);
+    let mut threshold = position_in_range(&0, &total_weight, &hash);
     for item in options {
         let weight = item.weight;
         if threshold < weight {

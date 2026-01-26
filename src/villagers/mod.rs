@@ -17,7 +17,7 @@ pub struct Villager;
 #[derive(Component)]
 pub struct GivenName(String);
 
-#[derive(Component, PartialEq, Clone, Copy)]
+#[derive(Component, Debug, PartialEq, Clone, Copy)]
 pub enum Gender {
     Male,
     Female,
@@ -29,17 +29,19 @@ pub struct MemberOfFamily(pub Entity);
 #[derive(Component)]
 pub struct HeadOfHousehold;
 
-fn generate_villager(
-    mut commands: Commands,
-    seed: &str,
-    position_key: u32,
+pub fn generate_villager(
+    mut commands: &mut Commands,
+    family_seed: &str,
+    family_member_index: u64,
     family: Entity,
     is_head: bool,
 ) -> Entity {
-    let seed_with_pos = seed.to_owned() + &position_key.to_string();
-    debug!(target: "Villager::Generate", "seed with position: {}", seed_with_pos);
+    let villager_seed =
+        format!("{}:member:{}", family_seed, family_member_index);
 
-    let hash = calculate_hash(&seed_with_pos);
+    debug!(target: "Villager::Generate", "Villager Seed: {}", villager_seed);
+
+    let hash = calculate_hash(&villager_seed);
     debug!(target: "Villager::Generate", "hash: {}", hash);
 
     let gender = match coin_flip(&hash) {
@@ -49,7 +51,7 @@ fn generate_villager(
 
     let given_name = get_first_name(&hash, &gender);
 
-    debug!(target: "Villager::Generate", "Name and gender: {} {}", given_name, gender);
+    debug!(target: "Villager::Generate", "Name and gender: {} {:?}", given_name, gender);
     let mut villager_entity = commands.spawn((
         Villager,
         GivenName(given_name.to_string()),
@@ -57,11 +59,11 @@ fn generate_villager(
         MemberOfFamily(family),
     ));
 
-    if (is_head) {
+    if is_head {
         villager_entity.insert(HeadOfHousehold);
     }
 
-    debug!(target: "Villager::Generate", "villager_entity: {}", villager_entity);
+    debug!(target: "Villager::Generate", "villager_entity: {}", villager_entity.id());
 
     villager_entity.id()
 }
