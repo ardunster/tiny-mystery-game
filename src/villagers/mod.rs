@@ -1,5 +1,7 @@
 use crate::names::get_first_name;
-use crate::rng::{calculate_hash, coin_flip};
+use crate::rng::{
+    calculate_hash, choose_weighted_value, coin_flip, WeightedValue,
+};
 use bevy::app::App;
 use bevy::prelude::*;
 
@@ -29,6 +31,17 @@ pub struct MemberOfFamily(pub Entity);
 #[derive(Component)]
 pub struct HeadOfHousehold;
 
+pub const HEAD_HOUSEHOLD_GENDER_WEIGHTS: [WeightedValue<Gender>; 2] = [
+    WeightedValue {
+        value: Gender::Male,
+        weight: 9,
+    },
+    WeightedValue {
+        value: Gender::Female,
+        weight: 1,
+    },
+];
+
 pub fn generate_villager(
     mut commands: &mut Commands,
     family_seed: &str,
@@ -44,9 +57,15 @@ pub fn generate_villager(
     let hash = calculate_hash(&villager_seed);
     debug!(target: "Villager::Generate", "hash: {}", hash);
 
-    let gender = match coin_flip(&hash) {
-        true => Gender::Male,
-        false => Gender::Female,
+    let gender = if is_head {
+        choose_weighted_value(&HEAD_HOUSEHOLD_GENDER_WEIGHTS, hash)
+            .copied()
+            .unwrap_or(Gender::Male)
+    } else {
+        match coin_flip(&hash) {
+            true => Gender::Male,
+            false => Gender::Female,
+        }
     };
 
     let given_name = get_first_name(&hash, &gender);
