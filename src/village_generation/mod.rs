@@ -11,7 +11,7 @@ impl Plugin for VillageGenerationPlugin {
         app.add_plugins(VillagerPlugin)
             .insert_resource(VillageGenConfig::default())
             .add_event::<GenerateVillage>()
-            .add_systems(Startup, request_generate_village)
+            // .add_systems(Startup, request_generate_village)
             .add_systems(Update, generate_village_on_request);
     }
 }
@@ -47,7 +47,9 @@ pub struct HouseholdSize(pub u64);
 #[derive(Event)]
 pub struct GenerateVillage;
 
-fn request_generate_village(mut event_writer: EventWriter<GenerateVillage>) {
+pub fn request_generate_village(
+    mut event_writer: EventWriter<GenerateVillage>,
+) {
     event_writer.write(GenerateVillage);
 }
 
@@ -58,10 +60,10 @@ fn generate_village_on_request(
     config: Res<VillageGenConfig>,
 ) {
     if generate_village_event.is_empty() {
-        debug!(target: "Village::Generate", "Generate Village Event is empty");
+        // debug!(target: "Village::Generate", "Generate Village Event is empty");
         return;
     }
-    debug!(target: "Village::Generate", "Clearing Generate Village Event.");
+    debug!(target: "Village::Generate", "Received Generate Village Event.");
     generate_village_event.clear();
 
     let world_seed = world_seed_resource.as_str();

@@ -6,9 +6,10 @@ use std::env;
 use tiny_mystery_game::names::{get_first_name, get_surname};
 use tiny_mystery_game::resources::{EnvArgsResource, WorldSeed};
 use tiny_mystery_game::rng::{calculate_hash, coin_flip};
-use tiny_mystery_game::tiles;
 use tiny_mystery_game::tiles::TileSpriteSheet;
+use tiny_mystery_game::village_generation::VillageGenerationPlugin;
 use tiny_mystery_game::villagers::Gender;
+use tiny_mystery_game::{tiles, village_generation};
 
 fn main() -> AppExit {
     let args: Vec<String> = env::args().collect();
@@ -32,41 +33,25 @@ fn main() -> AppExit {
                 }),
         )
         .insert_resource(EnvArgsResource { args })
-        .add_plugins(TilemapPlugin)
+        .add_plugins((TilemapPlugin, VillageGenerationPlugin))
         .add_systems(PreStartup, set_world_seed)
         .add_systems(
             Startup,
             (
                 spawn_camera,
                 tiles::set_up_tilemap,
-                playground.after(tiles::set_up_tilemap),
+                village_generation::request_generate_village,
+                playground.after(village_generation::request_generate_village),
             ),
         )
         .run()
 }
 
-fn playground(world_seed: Res<WorldSeed>) {
-    let seed = world_seed.as_str();
-
-    for position in 0..3 {
-        let seed_with_pos = seed.to_owned() + &position.to_string();
-
-        debug!(target: "Playground::Villager", "seed with position: {}", seed_with_pos);
-        let hash = calculate_hash(&seed_with_pos);
-
-        let gender = match coin_flip(&hash) {
-            true => Gender::Male,
-            false => Gender::Female,
-        };
-
-        debug!(target: "Playground::Villager",
-            "Got a name: {} {}",
-            get_first_name(&hash, &gender),
-            get_surname(&hash)
-        );
-    }
-
-    debug!(target: "Playground::Tilemap", "Tilemap stuff");
+fn playground(
+    families: Query<(), With<village_generation::Family>>,
+    villagers: Query<(), With<tiny_mystery_game::villagers::Villager>>,
+) {
+    info!(target: "Village", "families={}, villagers={}", families.iter().len(), villagers.iter().len());
 }
 
 #[derive(Component)]
