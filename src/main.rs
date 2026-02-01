@@ -1,10 +1,8 @@
 use bevy::log::LogPlugin;
 use bevy::prelude::*;
-use bevy::window::PrimaryWindow;
 use bevy_ecs_tilemap::TilemapPlugin;
 use std::env;
 use tiny_mystery_game::resources::{EnvArgsResource, WorldSeed};
-use tiny_mystery_game::tiles::TileSpriteSheet;
 use tiny_mystery_game::village_generation::VillageGenerationPlugin;
 use tiny_mystery_game::{tiles, village_generation};
 
@@ -38,18 +36,21 @@ fn main() -> AppExit {
                 spawn_camera,
                 tiles::set_up_tilemap,
                 village_generation::request_generate_village,
-                playground.after(village_generation::request_generate_village),
+                // playground.after(village_generation::request_generate_village),
             ),
         )
         .run()
 }
 
-fn playground(
-    families: Query<(), With<village_generation::Family>>,
-    villagers: Query<(), With<tiny_mystery_game::villagers::Villager>>,
-) {
-    info!(target: "Village", "families={}, villagers={}", families.iter().len(), villagers.iter().len());
-}
+// fn playground(
+//     families: Query<(), With<village_generation::Family>>,
+//     villagers: Query<
+//         (),
+//         With<tiny_mystery_game::village::model::villager::Villager>,
+//     >,
+// ) {
+//     info!(target: "Village", "families={}, villagers={}", families.iter().len(), villagers.iter().len());
+// }
 
 #[derive(Component)]
 struct Player {}

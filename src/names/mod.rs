@@ -1,5 +1,5 @@
 use crate::rng::position_in_range::position_in_range;
-use crate::villagers::Gender;
+use crate::village::model::villager::Gender;
 use log::trace;
 
 pub const MALE_FIRST_NAMES: [&str; 61] = [

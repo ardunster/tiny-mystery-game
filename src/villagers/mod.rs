@@ -4,6 +4,9 @@ use crate::names::get_first_name;
 use crate::rng::coin_flip::coin_flip;
 use crate::rng::hash::calculate_hash;
 use crate::rng::weighted_value::{choose_weighted_value, WeightedValue};
+use crate::village::model::villager::{
+    Gender, GivenName, HeadOfHousehold, MemberOfFamily, Villager,
+};
 use bevy::app::App;
 use bevy::prelude::*;
 
@@ -14,24 +17,6 @@ impl Plugin for VillagerGenerationPlugin {
         // app.add_systems(Startup, generate_villager);
     }
 }
-
-#[derive(Component)]
-pub struct Villager;
-
-#[derive(Component)]
-pub struct GivenName(String);
-
-#[derive(Component, Debug, PartialEq, Clone, Copy)]
-pub enum Gender {
-    Male,
-    Female,
-}
-
-#[derive(Component)]
-pub struct MemberOfFamily(pub Entity);
-
-#[derive(Component)]
-pub struct HeadOfHousehold;
 
 pub const HEAD_HOUSEHOLD_GENDER_WEIGHTS: [WeightedValue<Gender>; 2] = [
     WeightedValue {
@@ -45,7 +30,7 @@ pub const HEAD_HOUSEHOLD_GENDER_WEIGHTS: [WeightedValue<Gender>; 2] = [
 ];
 
 pub fn generate_villager(
-    mut commands: &mut Commands,
+    commands: &mut Commands,
     family_seed: &str,
     family_member_index: u64,
     family: Entity,
