@@ -2,8 +2,13 @@ use crate::names::get_surname;
 use crate::resources::WorldSeed;
 use crate::rng::hash::calculate_hash;
 use crate::rng::position_in_range::position_in_range;
-use crate::villagers::{self, VillagerGenerationPlugin};
-use bevy::prelude::*;
+use crate::villagers;
+use crate::villagers::VillagerGenerationPlugin;
+use bevy::app::{App, Plugin, Update};
+use bevy::log::debug;
+use bevy::prelude::{
+    Commands, Component, Entity, Event, EventReader, EventWriter, Res, Resource,
+};
 
 pub struct VillageGenerationPlugin;
 

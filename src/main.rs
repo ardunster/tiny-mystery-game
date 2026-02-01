@@ -3,8 +3,9 @@ use bevy::prelude::*;
 use bevy_ecs_tilemap::TilemapPlugin;
 use std::env;
 use tiny_mystery_game::resources::{EnvArgsResource, WorldSeed};
-use tiny_mystery_game::village_generation::VillageGenerationPlugin;
-use tiny_mystery_game::{tiles, village_generation};
+use tiny_mystery_game::tiles;
+use tiny_mystery_game::village::generation::village;
+use tiny_mystery_game::village::generation::village::VillageGenerationPlugin;
 
 fn main() -> AppExit {
     let args: Vec<String> = env::args().collect();
@@ -35,7 +36,7 @@ fn main() -> AppExit {
             (
                 spawn_camera,
                 tiles::set_up_tilemap,
-                village_generation::request_generate_village,
+                village::request_generate_village,
                 // playground.after(village_generation::request_generate_village),
             ),
         )
