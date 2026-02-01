@@ -3,6 +3,7 @@ use crate::resources::WorldSeed;
 use crate::rng::{calculate_hash, position_in_range};
 use crate::villagers::{self, VillagerPlugin};
 use bevy::prelude::*;
+use bevy::window::WindowRef::Entity;
 
 pub struct VillageGenerationPlugin;
 
@@ -37,6 +38,9 @@ impl Default for VillageGenConfig {
 
 #[derive(Component)]
 pub struct Family;
+
+#[derive(Component, Default)]
+pub struct FamilyMembers(pub Vec<Entity>);
 
 #[derive(Component)]
 pub struct Surname(pub String);
@@ -98,21 +102,35 @@ fn generate_village_on_request(
         debug!(target: "Family::Generate", "Family Size: {}", family_size);
 
         let family_entity = commands
-            .spawn((Family, Surname(surname), HouseholdSize(family_size)))
+            .spawn((
+                Family,
+                Surname(surname),
+                HouseholdSize(family_size),
+                FamilyMembers::default(),
+            ))
             .id();
 
         debug!(target: "Family::Generate", "Family Entity: {}", family_entity);
 
+        let mut family_member_entities: Vec<Entity> =
+            Vec::with_capacity(family_size as usize);
+
         for family_member_index in 0..family_size {
             let is_head = family_member_index == 0;
 
-            villagers::generate_villager(
+            let new_villager = villagers::generate_villager(
                 &mut commands,
                 &family_seed,
                 family_member_index,
                 family_entity,
                 is_head,
             );
+
+            family_member_entities.push(new_villager);
         }
+
+        commands
+            .entity(family_entity)
+            .insert(FamilyMembers(family_member_entities));
     }
 }
