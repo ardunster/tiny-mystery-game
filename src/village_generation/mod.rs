@@ -4,7 +4,6 @@ use crate::rng::hash::calculate_hash;
 use crate::rng::position_in_range::position_in_range;
 use crate::villagers::{self, VillagerPlugin};
 use bevy::prelude::*;
-use bevy::window::WindowRef::Entity;
 
 pub struct VillageGenerationPlugin;
 

@@ -34,3 +34,9 @@ Run the app with a custom seed:
 ```bash
 cargo run seed custom-seed
 ```
+
+Run the test suites:
+
+```bash
+cargo test
+```
