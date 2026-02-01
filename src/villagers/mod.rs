@@ -1,5 +1,3 @@
-mod relationships;
-
 use crate::names::get_first_name;
 use crate::rng::coin_flip::coin_flip;
 use crate::rng::hash::calculate_hash;
