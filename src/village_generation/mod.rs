@@ -2,14 +2,14 @@ use crate::names::get_surname;
 use crate::resources::WorldSeed;
 use crate::rng::hash::calculate_hash;
 use crate::rng::position_in_range::position_in_range;
-use crate::villagers::{self, VillagerPlugin};
+use crate::villagers::{self, VillagerGenerationPlugin};
 use bevy::prelude::*;
 
 pub struct VillageGenerationPlugin;
 
 impl Plugin for VillageGenerationPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(VillagerPlugin)
+        app.add_plugins(VillagerGenerationPlugin)
             .insert_resource(VillageGenConfig::default())
             .add_event::<GenerateVillage>()
             // .add_systems(Startup, request_generate_village)

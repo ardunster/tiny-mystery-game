@@ -7,9 +7,9 @@ use crate::rng::weighted_value::{choose_weighted_value, WeightedValue};
 use bevy::app::App;
 use bevy::prelude::*;
 
-pub struct VillagerPlugin;
+pub struct VillagerGenerationPlugin;
 
-impl Plugin for VillagerPlugin {
+impl Plugin for VillagerGenerationPlugin {
     fn build(&self, _app: &mut App) {
         // app.add_systems(Startup, generate_villager);
     }
