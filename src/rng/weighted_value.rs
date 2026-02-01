@@ -73,3 +73,75 @@ fn choose_weighted_value_never_none_when_total_weight_positive() {
         assert!(picked.is_some(), "hash={hash} unexpectedly returned None");
     }
 }
+
+#[test]
+fn choose_weighted_value_respects_boundaries() {
+    let options = vec![
+        WeightedValue {
+            value: "A",
+            weight: 2,
+        },
+        WeightedValue {
+            value: "B",
+            weight: 3,
+        },
+    ];
+
+    assert_eq!(choose_weighted_value(&options, 0).copied(), Some("A"));
+    assert_eq!(choose_weighted_value(&options, 1).copied(), Some("A"));
+
+    assert_eq!(choose_weighted_value(&options, 2).copied(), Some("B"));
+    assert_eq!(choose_weighted_value(&options, 3).copied(), Some("B"));
+    assert_eq!(choose_weighted_value(&options, 4).copied(), Some("B"));
+}
+
+#[test]
+fn choose_weighted_value_wraps_correctly() {
+    let options = vec![
+        WeightedValue {
+            value: "A",
+            weight: 2,
+        },
+        WeightedValue {
+            value: "B",
+            weight: 3,
+        },
+    ];
+
+    assert_eq!(choose_weighted_value(&options, 5).copied(), Some("A"));
+    assert_eq!(choose_weighted_value(&options, 6).copied(), Some("A"));
+
+    assert_eq!(choose_weighted_value(&options, 7).copied(), Some("B"));
+    assert_eq!(choose_weighted_value(&options, 8).copied(), Some("B"));
+    assert_eq!(choose_weighted_value(&options, 9).copied(), Some("B"));
+}
+
+#[test]
+fn choose_weighted_value_distribution_is_reasonable() {
+    let options = vec![
+        WeightedValue {
+            value: "A",
+            weight: 2,
+        },
+        WeightedValue {
+            value: "B",
+            weight: 3,
+        },
+    ];
+
+    let mut a = 0u64;
+    let mut b = 0u64;
+
+    for hash in 0..10_000u64 {
+        match *choose_weighted_value(&options, hash).unwrap() {
+            "A" => a += 1,
+            "B" => b += 1,
+            _ => unreachable!(),
+        }
+    }
+
+    // Expected ratio A:B is 2:3.
+    // Allow some tolerance.
+    let ratio = a as f64 / b as f64;
+    assert!(ratio > 0.60 && ratio < 0.75, "a={a} b={b} ratio={ratio}");
+}
