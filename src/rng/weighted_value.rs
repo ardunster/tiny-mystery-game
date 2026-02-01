@@ -1,4 +1,4 @@
-use crate::rng;
+use super::position_in_range::position_in_range;
 
 #[derive(Clone)]
 pub struct WeightedValue<T> {
@@ -18,7 +18,7 @@ pub fn choose_weighted_value<T>(
         return None;
     }
 
-    let mut threshold = rng::position_in_range(&0, &(total_weight - 1), &hash);
+    let mut threshold = position_in_range(&0, &(total_weight - 1), &hash);
     for item in options {
         let weight = item.weight;
         if threshold < weight {

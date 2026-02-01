@@ -3,12 +3,9 @@ use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use bevy_ecs_tilemap::TilemapPlugin;
 use std::env;
-use tiny_mystery_game::names::{get_first_name, get_surname};
 use tiny_mystery_game::resources::{EnvArgsResource, WorldSeed};
-use tiny_mystery_game::rng::{calculate_hash, coin_flip};
 use tiny_mystery_game::tiles::TileSpriteSheet;
 use tiny_mystery_game::village_generation::VillageGenerationPlugin;
-use tiny_mystery_game::villagers::Gender;
 use tiny_mystery_game::{tiles, village_generation};
 
 fn main() -> AppExit {

@@ -1,4 +1,4 @@
-use crate::rng::position_in_range;
+use crate::rng::position_in_range::position_in_range;
 use crate::villagers::Gender;
 use log::trace;
 

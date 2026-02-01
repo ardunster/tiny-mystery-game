@@ -1,6 +1,6 @@
 pub mod tile_index;
 use crate::resources::WorldSeed;
-use crate::rng::calculate_hash;
+use crate::rng::hash::calculate_hash;
 use crate::terrain::terrain_grid::{TerrainGrid, TerrainGridSize};
 use crate::terrain::tile_terrain::TileTerrain;
 use crate::terrain::{get_terrain_sprite_index, TerrainType};
