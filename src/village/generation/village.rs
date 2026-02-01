@@ -2,6 +2,9 @@ use crate::names::get_surname;
 use crate::resources::WorldSeed;
 use crate::rng::hash::calculate_hash;
 use crate::rng::position_in_range::position_in_range;
+use crate::village::model::family::{
+    Family, FamilyMembers, HouseholdSize, Surname,
+};
 use crate::villagers;
 use crate::villagers::VillagerGenerationPlugin;
 use bevy::app::{App, Plugin, Update};
@@ -40,18 +43,6 @@ impl Default for VillageGenConfig {
         }
     }
 }
-
-#[derive(Component)]
-pub struct Family;
-
-#[derive(Component, Default)]
-pub struct FamilyMembers(pub Vec<Entity>);
-
-#[derive(Component)]
-pub struct Surname(pub String);
-
-#[derive(Component)]
-pub struct HouseholdSize(pub u64);
 
 #[derive(Event)]
 pub struct GenerateVillage;
