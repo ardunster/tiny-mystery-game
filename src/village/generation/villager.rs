@@ -5,8 +5,9 @@ use crate::rng::weighted_value::{choose_weighted_value, WeightedValue};
 use crate::village::model::villager::{
     Gender, GivenName, HeadOfHousehold, MemberOfFamily, Villager,
 };
-use bevy::app::App;
-use bevy::prelude::*;
+use bevy::app::{App, Plugin};
+use bevy::log::debug;
+use bevy::prelude::{Commands, Entity};
 
 pub struct VillagerGenerationPlugin;
 

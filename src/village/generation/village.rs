@@ -2,11 +2,11 @@ use crate::names::get_surname;
 use crate::resources::WorldSeed;
 use crate::rng::hash::calculate_hash;
 use crate::rng::position_in_range::position_in_range;
+use crate::village::generation::villager;
+use crate::village::generation::villager::VillagerGenerationPlugin;
 use crate::village::model::family::{
     Family, FamilyMembers, HouseholdSize, Surname,
 };
-use crate::villagers;
-use crate::villagers::VillagerGenerationPlugin;
 use bevy::app::{App, Plugin, Update};
 use bevy::log::debug;
 use bevy::prelude::{
@@ -119,7 +119,7 @@ fn generate_village_on_request(
             //
             // }
 
-            let new_villager = villagers::generate_villager(
+            let new_villager = villager::generate_villager(
                 &mut commands,
                 &family_seed,
                 family_member_index,

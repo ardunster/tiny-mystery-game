@@ -8,4 +8,3 @@ mod skills;
 mod terrain;
 pub mod tiles;
 pub mod village;
-pub mod villagers;
