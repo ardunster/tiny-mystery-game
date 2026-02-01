@@ -1,7 +1,7 @@
 pub mod terrain_grid;
 pub mod tile_terrain;
 
-use crate::rng::{choose_weighted_value, WeightedValue};
+use crate::rng::weighted_value::{choose_weighted_value, WeightedValue};
 use crate::terrain::terrain_grid::{TerrainGrid, TerrainGridSize};
 use crate::tiles::tile_index::{GroundTile, Plant, TileIndex};
 use bevy::platform::collections::HashMap;

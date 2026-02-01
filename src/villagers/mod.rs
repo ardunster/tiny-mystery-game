@@ -1,7 +1,8 @@
+mod relationships;
+
 use crate::names::get_first_name;
-use crate::rng::{
-    calculate_hash, choose_weighted_value, coin_flip, WeightedValue,
-};
+use crate::rng::weighted_value::{choose_weighted_value, WeightedValue};
+use crate::rng::{calculate_hash, coin_flip};
 use bevy::app::App;
 use bevy::prelude::*;
 

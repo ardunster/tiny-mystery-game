@@ -118,6 +118,11 @@ fn generate_village_on_request(
         for family_member_index in 0..family_size {
             let is_head = family_member_index == 0;
 
+            // let mut is_spouse = false;
+            // if (family_member_index == 1) {
+            //
+            // }
+
             let new_villager = villagers::generate_villager(
                 &mut commands,
                 &family_seed,
