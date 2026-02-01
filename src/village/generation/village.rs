@@ -9,9 +9,7 @@ use crate::village::model::family::{
 };
 use bevy::app::{App, Plugin, Update};
 use bevy::log::debug;
-use bevy::prelude::{
-    Commands, Component, Entity, Event, EventReader, EventWriter, Res, Resource,
-};
+use bevy::prelude::*;
 
 pub struct VillageGenerationPlugin;
 
@@ -20,8 +18,11 @@ impl Plugin for VillageGenerationPlugin {
         app.add_plugins(VillagerGenerationPlugin)
             .insert_resource(VillageGenConfig::default())
             .add_event::<GenerateVillage>()
-            // .add_systems(Startup, request_generate_village)
-            .add_systems(Update, generate_village_on_request);
+            .add_systems(
+                Update,
+                (generate_village_on_request, debug_families_on_generate)
+                    .chain(),
+            );
     }
 }
 
@@ -133,5 +134,27 @@ fn generate_village_on_request(
         commands
             .entity(family_entity)
             .insert(FamilyMembers(family_member_entities));
+    }
+}
+
+fn debug_families_on_generate(
+    mut event_reader: EventReader<GenerateVillage>,
+    families: Query<
+        (Entity, &Surname, &HouseholdSize, &FamilyMembers),
+        With<Family>,
+    >,
+) {
+    if event_reader.is_empty() {
+        return;
+    }
+
+    for (family_entity, surname, size, members) in &families {
+        debug!(
+            target: "Village::Generate",
+            "Family {family_entity:?}: surname='{}' size={} members={:?}",
+            surname.0,
+            size.0,
+            members.0,
+        );
     }
 }
