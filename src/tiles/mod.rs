@@ -1,5 +1,5 @@
 pub mod tile_index;
-use crate::core::WorldSeed;
+use crate::core::resources::WorldSeed;
 use crate::rng::hash::calculate_hash;
 use crate::terrain::terrain_grid::{TerrainGrid, TerrainGridSize};
 use crate::terrain::tile_terrain::TileTerrain;

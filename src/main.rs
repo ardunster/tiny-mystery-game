@@ -2,7 +2,7 @@ use bevy::log::LogPlugin;
 use bevy::prelude::*;
 use bevy_ecs_tilemap::TilemapPlugin;
 use std::env;
-use tiny_mystery_game::core::{EnvArgsResource, WorldSeed};
+use tiny_mystery_game::core::resources::{EnvArgsResource, WorldSeed};
 use tiny_mystery_game::tiles;
 use tiny_mystery_game::village::generation::village;
 use tiny_mystery_game::village::generation::village::VillageGenerationPlugin;

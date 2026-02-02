@@ -1,3 +1,4 @@
+use crate::core::resources::EntitySeed;
 use crate::village::model::villager::{MemberOfFamily, Villager};
 use bevy::app::{App, Plugin};
 use bevy::log::debug;
@@ -16,8 +17,11 @@ pub fn create_villager(
     villager_seed: &str,
     family: Entity,
 ) -> Entity {
-    let villager_entity =
-        commands.spawn((Villager, villager_seed, MemberOfFamily(family)));
+    let villager_entity = commands.spawn((
+        Villager,
+        EntitySeed(villager_seed.to_string()),
+        MemberOfFamily(family),
+    ));
 
     debug!(target: "Generate::Villager", "Created Villager for Family {}: {}", family, villager_entity.id());
 
