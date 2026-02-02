@@ -17,3 +17,9 @@ pub struct MemberOfFamily(pub Entity);
 
 #[derive(Component)]
 pub struct HeadOfHousehold;
+
+#[derive(Component)]
+pub struct SpouseOf(pub Entity);
+
+#[derive(Component)]
+pub struct ChildOf(pub Entity);
