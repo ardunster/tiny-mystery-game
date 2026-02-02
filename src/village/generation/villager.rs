@@ -11,8 +11,13 @@ impl Plugin for VillagerGenerationPlugin {
     }
 }
 
-pub fn create_villager(commands: &mut Commands, family: Entity) -> Entity {
-    let villager_entity = commands.spawn((Villager, MemberOfFamily(family)));
+pub fn create_villager(
+    commands: &mut Commands,
+    villager_seed: &str,
+    family: Entity,
+) -> Entity {
+    let villager_entity =
+        commands.spawn((Villager, villager_seed, MemberOfFamily(family)));
 
     debug!(target: "Generate::Villager", "Created Villager for Family {}: {}", family, villager_entity.id());
 

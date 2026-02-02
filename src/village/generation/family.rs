@@ -40,6 +40,7 @@ pub fn generate_family(
     let family_entity = commands
         .spawn((
             Family,
+            &family_seed,
             Surname(surname),
             HouseholdSize(family_size),
             FamilyMembers::default(),
@@ -65,8 +66,11 @@ pub fn generate_family(
 
         let is_head = family_member_index == 0;
 
-        let new_family_member =
-            villager::create_villager(&mut commands, family_entity);
+        let new_family_member = villager::create_villager(
+            &mut commands,
+            &villager_seed,
+            family_entity,
+        );
 
         if is_head {
             debug!(target: "Generate::Family", "Family Member {} is Head of Household", new_family_member);
