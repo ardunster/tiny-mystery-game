@@ -60,15 +60,15 @@ fn generate_village_on_request(
     config: Res<VillageGenConfig>,
 ) {
     if generate_village_event.is_empty() {
-        // debug!(target: "Village::Generate", "Generate Village Event is empty");
+        // debug!(target: "Generate::Village", "Generate Village Event is empty");
         return;
     }
-    debug!(target: "Village::Generate", "Received Generate Village Event.");
+    debug!(target: "Generate::Village", "Received Generate Village Event.");
     generate_village_event.clear();
 
     let world_seed = world_seed_resource.as_str();
 
-    debug!(target: "Village::Generate", "World Seed: {}", world_seed);
+    debug!(target: "Generate::Village", "World Seed: {}", world_seed);
     let village_hash = calculate_hash(&world_seed);
 
     let family_count = position_in_range(
@@ -77,7 +77,7 @@ fn generate_village_on_request(
         &village_hash,
     );
 
-    debug!(target: "Village::Generate", "Family Count = {}", family_count);
+    debug!(target: "Generate::Village", "Family Count = {}", family_count);
 
     for family_index in 0..family_count {
         family::generate_family(
@@ -102,7 +102,7 @@ fn debug_families_on_generate(
 
     for (family_entity, surname, size, members) in &families {
         debug!(
-            target: "Village::Generate",
+            target: "Generate::Village",
             "Family {family_entity:?}: surname='{}' size={} members={:?}",
             surname.0,
             size.0,
