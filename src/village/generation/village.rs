@@ -1,4 +1,4 @@
-use crate::resources::WorldSeed;
+use crate::core::WorldSeed;
 use crate::rng::hash::calculate_hash;
 use crate::rng::position_in_range::position_in_range;
 use crate::village::generation::family;
